@@ -37,7 +37,7 @@ public class ScoreCalculatorTest {
     @Test
     public void ones()
     {
-        assertEquals(3, calculator.calculateOnes(new ArrayList<> (Arrays.asList(1,1,4,6,1))));
         assertEquals(0, calculator.calculateOnes(new ArrayList<> (Arrays.asList(5,6,3,2,6))));
+        assertEquals(3, calculator.calculateOnes(new ArrayList<> (Arrays.asList(1,1,4,6,1))));
     }
 }

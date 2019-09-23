@@ -5,11 +5,7 @@ import java.util.ArrayList;
 public class ScoreCalculator {
 
     public int calculateChance(ArrayList<Integer> die) {
-        int score = 0;
-        for (int i : die) {
-            score += i;
-        }
-        return score;
+        return sum(die);
     }
 
     public int calculateYatzy(ArrayList<Integer> die) {
@@ -21,12 +17,19 @@ public class ScoreCalculator {
     }
 
     public int calculateOnes(ArrayList<Integer> die) {
-        int score = 0;
+        return calculateNumbers(1, die);
+    }
+
+    private int sum(ArrayList<Integer> die) {
+        int sum = 0;
         for (int i : die) {
-            if (i == 1) {
-                score += i;
-            }
+            sum += i;
         }
-        return score;
+        return sum;
+    }
+
+    private int calculateNumbers(int number, ArrayList<Integer> die) {
+        die.removeIf(i -> (i != number));
+        return sum(die);
     }
 }
