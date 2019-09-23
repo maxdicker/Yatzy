@@ -1,8 +1,10 @@
 package com.max;
 
+import java.util.ArrayList;
+
 public class ScoreCalculator {
 
-    public int calculateChance(int[] die) {
+    public int calculateChance(ArrayList<Integer> die) {
         int score = 0;
         for (int i : die) {
             score += i;
@@ -10,15 +12,15 @@ public class ScoreCalculator {
         return score;
     }
 
-    public int calculateYatzy(int[] die) {
-        if (die[0]==die[1] && die[1]==die[2] && die[2]==die[3] && die[3]==die[4]) {
+    public int calculateYatzy(ArrayList<Integer> die) {
+        if (die.get(0).equals(die.get(1)) && die.get(1).equals(die.get(2)) && die.get(2).equals(die.get(3)) && die.get(3).equals(die.get(4))) {
             return 50;
         } else {
             return 0;
         }
     }
 
-    public int calculateOnes(int[] die) {
+    public int calculateOnes(ArrayList<Integer> die) {
         int score = 0;
         for (int i : die) {
             if (i == 1) {
