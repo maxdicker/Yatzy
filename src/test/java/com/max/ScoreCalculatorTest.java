@@ -30,4 +30,11 @@ public class ScoreCalculatorTest {
     {
         assertEquals(50, calculator.calculateYatzy(1,1,1,1,1));
     }
+
+    @Test
+    public void ones()
+    {
+        assertEquals(3, calculator.calculateOnes(1,1,4,6,1));
+        assertEquals(0, calculator.calculateOnes(5,6,3,2,6));
+    }
 }
