@@ -16,25 +16,25 @@ public class ScoreCalculatorTest {
     @Test
     public void chance()
     {
-        assertEquals(15, calculator.calculateChance(1,2,3,4,5));
+        assertEquals(15, calculator.calculateChance(new int[] {1,2,3,4,5}));
     }
 
     @Test
     public void incompleteYatzyReturns0()
     {
-        assertEquals(0, calculator.calculateYatzy(1,1,1,2,1));
+        assertEquals(0, calculator.calculateYatzy(new int[] {1,1,1,2,1}));
     }
 
     @Test
     public void yatzyReturns50()
     {
-        assertEquals(50, calculator.calculateYatzy(1,1,1,1,1));
+        assertEquals(50, calculator.calculateYatzy(new int[] {1,1,1,1,1}));
     }
 
     @Test
     public void ones()
     {
-        assertEquals(3, calculator.calculateOnes(1,1,4,6,1));
-        assertEquals(0, calculator.calculateOnes(5,6,3,2,6));
+        assertEquals(3, calculator.calculateOnes(new int[] {1,1,4,6,1}));
+        assertEquals(0, calculator.calculateOnes(new int[] {5,6,3,2,6}));
     }
 }

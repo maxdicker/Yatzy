@@ -14,7 +14,13 @@ public class ScoreCalculator {
         }
     }
 
-
-
-
+    public int calculateOnes(int[] die) {
+        int score = 0;
+        for (int i : die) {
+            if (i == 1) {
+                score += i;
+            }
+        }
+        return score;
+    }
 }
