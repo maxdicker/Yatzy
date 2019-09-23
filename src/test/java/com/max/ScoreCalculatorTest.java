@@ -40,4 +40,40 @@ public class ScoreCalculatorTest {
         assertEquals(0, calculator.calculateOnes(new ArrayList<> (Arrays.asList(5,6,3,2,6))));
         assertEquals(3, calculator.calculateOnes(new ArrayList<> (Arrays.asList(1,1,4,6,1))));
     }
+
+    @Test
+    public void twos()
+    {
+        assertEquals(0, calculator.calculateTwos(new ArrayList<> (Arrays.asList(5,6,3,1,6))));
+        assertEquals(8, calculator.calculateTwos(new ArrayList<> (Arrays.asList(2,2,4,2,2))));
+    }
+
+    @Test
+    public void threes()
+    {
+        assertEquals(0, calculator.calculateThrees(new ArrayList<> (Arrays.asList(5,6,2,2,6))));
+        assertEquals(12, calculator.calculateThrees(new ArrayList<> (Arrays.asList(3,3,3,3,1))));
+    }
+
+    @Test
+    public void fours()
+    {
+        assertEquals(0, calculator.calculateFours(new ArrayList<> (Arrays.asList(5,6,3,2,6))));
+        assertEquals(8, calculator.calculateFours(new ArrayList<> (Arrays.asList(1,4,4,6,1))));
+    }
+
+    @Test
+    public void fives()
+    {
+        assertEquals(0, calculator.calculateFives(new ArrayList<> (Arrays.asList(1,4,3,2,6))));
+        assertEquals(5, calculator.calculateFives(new ArrayList<> (Arrays.asList(1,5,1,6,1))));
+    }
+
+    @Test
+    public void sixes()
+    {
+        assertEquals(0, calculator.calculateSixes(new ArrayList<> (Arrays.asList(1,4,3,2,5))));
+        assertEquals(24, calculator.calculateSixes(new ArrayList<> (Arrays.asList(5,6,6,6,6))));
+    }
+
 }

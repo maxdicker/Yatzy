@@ -20,6 +20,26 @@ public class ScoreCalculator {
         return calculateNumbers(1, die);
     }
 
+    public int calculateTwos(ArrayList<Integer> die) {
+        return calculateNumbers(2, die);
+    }
+
+    public int calculateThrees(ArrayList<Integer> die) {
+        return calculateNumbers(3, die);
+    }
+
+    public int calculateFours(ArrayList<Integer> die) {
+        return calculateNumbers(4, die);
+    }
+
+    public int calculateFives(ArrayList<Integer> die) {
+        return calculateNumbers(5, die);
+    }
+
+    public int calculateSixes(ArrayList<Integer> die) {
+        return calculateNumbers(6, die);
+    }
+
     private int sum(ArrayList<Integer> die) {
         int sum = 0;
         for (int i : die) {
