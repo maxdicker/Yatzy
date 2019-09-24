@@ -61,6 +61,14 @@ public class ScoreCalculator {
         return highestPair;
     }
 
+    public int calculateTwoPairs(ArrayList<Integer> dice) {
+        if (getPairs(dice).size() == 2) {
+            return sum(getPairs(dice)) * 2;
+        } else {
+            return 0;
+        }
+    }
+
     private ArrayList<Integer> getPairs(ArrayList<Integer> dice) {
         HashMap<Integer, Integer> diceFrequency = new HashMap<>();
         for (int i : dice) {

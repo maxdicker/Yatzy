@@ -23,12 +23,6 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    public void incompleteYatzyReturns0()
-    {
-        assertEquals(0, calculator.calculateYatzy(new ArrayList<> (Arrays.asList(1,1,1,2,1))));
-    }
-
-    @Test
     public void yatzyReturns50()
     {
         assertEquals(50, calculator.calculateYatzy(new ArrayList<> (Arrays.asList(1,1,1,1,1))));
@@ -73,9 +67,7 @@ public class ScoreCalculatorTest {
     @Test
     public void pairReturnsSumOfTwoHighestMatching()
     {
-        assertEquals(6, calculator.calculatePair(new ArrayList<> (Arrays.asList(3,3,3,3,6))));
         assertEquals(10, calculator.calculatePair(new ArrayList<> (Arrays.asList(2,2,5,3,5))));
-
     }
 
     @Test
