@@ -1,7 +1,6 @@
 package com.max;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class ScoreCalculator {
 
@@ -62,27 +61,45 @@ public class ScoreCalculator {
     }
 
     public int calculateTwoPairs(ArrayList<Integer> dice) {
-        if (getPairs(dice).size() == 2) {
-            return sum(getPairs(dice)) * 2;
+        ArrayList<Integer> pairs = getPairs(dice);
+        if (pairs.size() == 2) {
+            return sum(pairs) * 2;
         } else {
             return 0;
         }
     }
 
-    private ArrayList<Integer> getPairs(ArrayList<Integer> dice) {
-        HashMap<Integer, Integer> diceFrequency = new HashMap<>();
-        for (int i : dice) {
-            diceFrequency.put(i, diceFrequency.getOrDefault(i, 0)+1);
+    public int calculateThreeOfAKind(ArrayList<Integer> dice) {
+        HashMap<Integer, Integer> diceFrequencies = getFrequencies(dice);
+
+        for (int i : diceFrequencies.keySet()) {
+            if (diceFrequencies.get(i) >= 3) {
+                return i * 3;
+            }
         }
 
+        return 0;
+    }
+
+    private ArrayList<Integer> getPairs(ArrayList<Integer> dice) {
+        HashMap<Integer, Integer> diceFrequencies = getFrequencies(dice);
+
         ArrayList<Integer> pairs = new ArrayList<>();
-        for (int i : diceFrequency.keySet()) {
-            if (diceFrequency.get(i) >= 2) {
+        for (int i : diceFrequencies.keySet()) {
+            if (diceFrequencies.get(i) >= 2) {
                 pairs.add(i);
             }
         }
 
         return pairs;
+    }
+
+    private HashMap<Integer, Integer> getFrequencies(ArrayList<Integer> dice) {
+        HashMap<Integer, Integer> diceFrequencies = new HashMap<>();
+        for (int i : dice) {
+            diceFrequencies.put(i, diceFrequencies.getOrDefault(i, 0)+1);
+        }
+        return diceFrequencies;
     }
 
     private int sum(ArrayList<Integer> dice) {

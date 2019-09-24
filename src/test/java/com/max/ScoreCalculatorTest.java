@@ -76,4 +76,10 @@ public class ScoreCalculatorTest {
         assertEquals(10, calculator.calculateTwoPairs(new ArrayList<> (Arrays.asList(2,2,3,3,3))));
     }
 
+    @Test
+    public void threeOfAKindReturnsSumOfThreeMatching()
+    {
+        assertEquals(12, calculator.calculateThreeOfAKind(new ArrayList<> (Arrays.asList(4,4,4,5,4))));
+    }
+
 }
