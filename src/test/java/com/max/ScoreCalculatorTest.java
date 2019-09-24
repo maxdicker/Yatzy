@@ -37,51 +37,51 @@ public class ScoreCalculatorTest {
     @Test
     public void onesReturnsSumOfAllOnes()
     {
-        assertEquals(0, calculator.calculateOnes(new ArrayList<> (Arrays.asList(5,6,3,2,6))));
         assertEquals(3, calculator.calculateOnes(new ArrayList<> (Arrays.asList(1,1,4,6,1))));
     }
 
     @Test
-    public void twos()
+    public void twosReturnsSumOfAllTwos()
     {
-        assertEquals(0, calculator.calculateTwos(new ArrayList<> (Arrays.asList(5,6,3,1,6))));
         assertEquals(8, calculator.calculateTwos(new ArrayList<> (Arrays.asList(2,2,4,2,2))));
     }
 
     @Test
-    public void threes()
+    public void threesReturnsSumOfAllThrees()
     {
-        assertEquals(0, calculator.calculateThrees(new ArrayList<> (Arrays.asList(5,6,2,2,6))));
         assertEquals(12, calculator.calculateThrees(new ArrayList<> (Arrays.asList(3,3,3,3,1))));
     }
 
     @Test
-    public void fours()
+    public void foursReturnsSumOfAllFours()
     {
-        assertEquals(0, calculator.calculateFours(new ArrayList<> (Arrays.asList(5,6,3,2,6))));
         assertEquals(8, calculator.calculateFours(new ArrayList<> (Arrays.asList(1,4,4,6,1))));
     }
 
     @Test
-    public void fives()
+    public void fivesReturnsSumOfAllFives()
     {
-        assertEquals(0, calculator.calculateFives(new ArrayList<> (Arrays.asList(1,4,3,2,6))));
         assertEquals(5, calculator.calculateFives(new ArrayList<> (Arrays.asList(1,5,1,6,1))));
     }
 
     @Test
-    public void sixes()
+    public void sixesReturnsSumOfAllSixes()
     {
-        assertEquals(0, calculator.calculateSixes(new ArrayList<> (Arrays.asList(1,4,3,2,5))));
         assertEquals(24, calculator.calculateSixes(new ArrayList<> (Arrays.asList(5,6,6,6,6))));
     }
 
     @Test
-    public void pair()
+    public void pairReturnsSumOfTwoHighestMatching()
     {
         assertEquals(6, calculator.calculatePair(new ArrayList<> (Arrays.asList(3,3,3,3,6))));
         assertEquals(10, calculator.calculatePair(new ArrayList<> (Arrays.asList(2,2,5,3,5))));
 
+    }
+
+    @Test
+    public void twoPairsReturnsSumOfPairs()
+    {
+        assertEquals(10, calculator.calculateTwoPairs(new ArrayList<> (Arrays.asList(2,2,3,3,3))));
     }
 
 }

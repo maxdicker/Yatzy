@@ -41,6 +41,11 @@ public class ScoreCalculator {
         return calculateNumbers(6, dice);
     }
 
+    private int calculateNumbers(int number, ArrayList<Integer> dice) {
+        dice.removeIf(i -> (i != number));
+        return sum(dice);
+    }
+
     public int calculatePair(ArrayList<Integer> dice) {
         return getHighestPair(dice) * 2;
     }
@@ -56,7 +61,7 @@ public class ScoreCalculator {
         return highestPair;
     }
 
-    private ArrayList<Integer> getPairs(ArrayList<Integer> dice) throws IllegalStateException {
+    private ArrayList<Integer> getPairs(ArrayList<Integer> dice) {
         HashMap<Integer, Integer> diceFrequency = new HashMap<>();
         for (int i : dice) {
             diceFrequency.put(i, diceFrequency.getOrDefault(i, 0)+1);
@@ -78,11 +83,6 @@ public class ScoreCalculator {
             sum += i;
         }
         return sum;
-    }
-
-    private int calculateNumbers(int number, ArrayList<Integer> dice) {
-        dice.removeIf(i -> (i != number));
-        return sum(dice);
     }
 
     private boolean allEqual(ArrayList<Integer> dice) {
