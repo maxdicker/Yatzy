@@ -1,6 +1,7 @@
 package com.max;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScoreCalculator {
 
@@ -38,6 +39,37 @@ public class ScoreCalculator {
 
     public int calculateSixes(ArrayList<Integer> dice) {
         return calculateNumbers(6, dice);
+    }
+
+    public int calculatePair(ArrayList<Integer> dice) {
+        return getHighestPair(dice) * 2;
+    }
+
+    private int getHighestPair(ArrayList<Integer> dice) {
+        int highestPair = 0;
+
+        for (int i: getPairs(dice)) {
+            if (i > highestPair) {
+                highestPair = i;
+            }
+        }
+        return highestPair;
+    }
+
+    private ArrayList<Integer> getPairs(ArrayList<Integer> dice) throws IllegalStateException {
+        HashMap<Integer, Integer> diceFrequency = new HashMap<>();
+        for (int i : dice) {
+            diceFrequency.put(i, diceFrequency.getOrDefault(i, 0)+1);
+        }
+
+        ArrayList<Integer> pairs = new ArrayList<>();
+        for (int i : diceFrequency.keySet()) {
+            if (diceFrequency.get(i) >= 2) {
+                pairs.add(i);
+            }
+        }
+
+        return pairs;
     }
 
     private int sum(ArrayList<Integer> dice) {
