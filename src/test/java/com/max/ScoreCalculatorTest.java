@@ -76,4 +76,12 @@ public class ScoreCalculatorTest {
         assertEquals(24, calculator.calculateSixes(new ArrayList<> (Arrays.asList(5,6,6,6,6))));
     }
 
+    @Test
+    public void pair()
+    {
+        assertEquals(6, calculator.calculatePair(new ArrayList<> (Arrays.asList(3,3,3,3,6))));
+        assertEquals(10, calculator.calculatePair(new ArrayList<> (Arrays.asList(2,2,5,3,5))));
+
+    }
+
 }
