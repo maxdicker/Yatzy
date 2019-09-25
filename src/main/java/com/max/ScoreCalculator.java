@@ -137,7 +137,9 @@ public class ScoreCalculator {
     }
 
     public int calculateSmallStraight(ArrayList<Integer> diceValues) {
-        if (diceValues.equals(smallStraight)) {
+        ArrayList<Integer> sortedValues = new ArrayList<>(diceValues);
+        Collections.sort(sortedValues);
+        if (sortedValues.equals(smallStraight)) {
             return sum(diceValues);
         } else {
             return 0;
@@ -145,10 +147,25 @@ public class ScoreCalculator {
     }
 
     public int calculateLargeStraight(ArrayList<Integer> diceValues) {
-        if (diceValues.equals(largeStraight)) {
+        ArrayList<Integer> sortedValues = new ArrayList<>(diceValues);
+        Collections.sort(sortedValues);
+        if (sortedValues.equals(largeStraight)) {
             return sum(diceValues);
         } else {
             return 0;
         }
+    }
+
+    public int calculateFullHouse(ArrayList<Integer> diceValues) {
+        if (isFullHouse(diceValues)) {
+            return sum(diceValues);
+        } else {
+            return 0;
+        }
+    }
+
+    private boolean isFullHouse(ArrayList<Integer> diceValues) {
+        HashMap<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
+        return frequenciesByValue.containsValue(2) && frequenciesByValue.containsValue(3);
     }
 }

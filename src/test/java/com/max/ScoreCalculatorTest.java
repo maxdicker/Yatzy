@@ -91,12 +91,18 @@ public class ScoreCalculatorTest {
     @Test
     public void smallStraightReturnsSumOfAll()
     {
-        assertEquals(15, calculator.calculateSmallStraight(new ArrayList<> (Arrays.asList(1,2,3,4,5))));
+        assertEquals(15, calculator.calculateSmallStraight(new ArrayList<> (Arrays.asList(2,5,3,1,4))));
     }
 
     @Test
     public void largeStraightReturnsSumOfAll()
     {
-        assertEquals(20, calculator.calculateLargeStraight(new ArrayList<> (Arrays.asList(2,3,4,5,6))));
+        assertEquals(20, calculator.calculateLargeStraight(new ArrayList<> (Arrays.asList(5,6,3,2,4))));
+    }
+
+    @Test
+    public void fullHouseReturnsSumOfAll()
+    {
+        assertEquals(24, calculator.calculateFullHouse(new ArrayList<> (Arrays.asList(6,3,6,3,6))));
     }
 }
