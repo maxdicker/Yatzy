@@ -3,6 +3,8 @@ package com.max;
 import java.util.*;
 
 public class ScoreCalculator {
+    private static final int yatzyScore = 50;
+    private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));
 
     public int calculateChance(ArrayList<Integer> diceValues) {
         return sum(diceValues);
@@ -18,7 +20,7 @@ public class ScoreCalculator {
 
     public int calculateYatzy(ArrayList<Integer> diceValues) {
         if (allEqual(diceValues)) {
-            return 50;
+            return yatzyScore;
         } else {
             return 0;
         }
@@ -131,5 +133,13 @@ public class ScoreCalculator {
 
     public int calculateFourOfAKind(ArrayList<Integer> diceValues) {
         return calculateXOfAKind(4, diceValues);
+    }
+
+    public int calculateSmallStraight(ArrayList<Integer> diceValues) {
+        if (diceValues.equals(smallStraight)) {
+            return sum(diceValues);
+        } else {
+            return 0;
+        }
     }
 }

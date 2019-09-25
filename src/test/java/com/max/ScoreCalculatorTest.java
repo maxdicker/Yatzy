@@ -87,4 +87,10 @@ public class ScoreCalculatorTest {
     {
         assertEquals(20, calculator.calculateFourOfAKind(new ArrayList<> (Arrays.asList(5,5,5,5,5))));
     }
+
+    @Test
+    public void smallStraightReturnsSumOfAll()
+    {
+        assertEquals(15, calculator.calculateSmallStraight(new ArrayList<> (Arrays.asList(1,2,3,4,5))));
+    }
 }
