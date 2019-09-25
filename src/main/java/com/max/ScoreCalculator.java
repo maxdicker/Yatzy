@@ -129,4 +129,7 @@ public class ScoreCalculator {
         return 0;
     }
 
+    public int calculateFourOfAKind(ArrayList<Integer> diceValues) {
+        return calculateXOfAKind(4, diceValues);
+    }
 }

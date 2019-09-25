@@ -82,4 +82,9 @@ public class ScoreCalculatorTest {
         assertEquals(12, calculator.calculateThreeOfAKind(new ArrayList<> (Arrays.asList(4,4,4,5,4))));
     }
 
+    @Test
+    public void fourOfAKindReturnsSumOfFourMatching()
+    {
+        assertEquals(20, calculator.calculateFourOfAKind(new ArrayList<> (Arrays.asList(5,5,5,5,5))));
+    }
 }
