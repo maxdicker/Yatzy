@@ -93,4 +93,10 @@ public class ScoreCalculatorTest {
     {
         assertEquals(15, calculator.calculateSmallStraight(new ArrayList<> (Arrays.asList(1,2,3,4,5))));
     }
+
+    @Test
+    public void largeStraightReturnsSumOfAll()
+    {
+        assertEquals(20, calculator.calculateLargeStraight(new ArrayList<> (Arrays.asList(2,3,4,5,6))));
+    }
 }

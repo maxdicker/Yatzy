@@ -5,6 +5,7 @@ import java.util.*;
 public class ScoreCalculator {
     private static final int yatzyScore = 50;
     private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));
+    private static final ArrayList<Integer> largeStraight = new ArrayList<>(Arrays.asList(2,3,4,5,6));
 
     public int calculateChance(ArrayList<Integer> diceValues) {
         return sum(diceValues);
@@ -137,6 +138,14 @@ public class ScoreCalculator {
 
     public int calculateSmallStraight(ArrayList<Integer> diceValues) {
         if (diceValues.equals(smallStraight)) {
+            return sum(diceValues);
+        } else {
+            return 0;
+        }
+    }
+
+    public int calculateLargeStraight(ArrayList<Integer> diceValues) {
+        if (diceValues.equals(largeStraight)) {
             return sum(diceValues);
         } else {
             return 0;
