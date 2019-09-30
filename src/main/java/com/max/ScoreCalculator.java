@@ -9,11 +9,11 @@ public class ScoreCalculator {
     private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));
     private static final ArrayList<Integer> largeStraight = new ArrayList<>(Arrays.asList(2,3,4,5,6));
 
-    public int calculateChance(ArrayList<Integer> diceValues) {
+    public int calculateChance(List<Integer> diceValues) {
         return sum(diceValues);
     }
 
-    private int sum(ArrayList<Integer> diceValues) {
+    private int sum(List<Integer> diceValues) {
         int sum = 0;
         for (int value : diceValues) {
             sum += value;
@@ -21,7 +21,7 @@ public class ScoreCalculator {
         return sum;
     }
 
-    public int calculateYatzy(ArrayList<Integer> diceValues) {
+    public int calculateYatzy(List<Integer> diceValues) {
         if (allEqual(diceValues)) {
             return yatzyScore;
         } else {
@@ -29,7 +29,7 @@ public class ScoreCalculator {
         }
     }
 
-    private boolean allEqual(ArrayList<Integer> diceValues) {
+    private boolean allEqual(List<Integer> diceValues) {
         boolean allEqual = true;
         int reference = diceValues.get(0);
 
@@ -42,42 +42,42 @@ public class ScoreCalculator {
         return allEqual;
     }
 
-    public int calculateOnes(ArrayList<Integer> diceValues) {
+    public int calculateOnes(List<Integer> diceValues) {
         return sumOfParticularNumber(1, diceValues);
     }
 
-    public int calculateTwos(ArrayList<Integer> diceValues) {
+    public int calculateTwos(List<Integer> diceValues) {
         return sumOfParticularNumber(2, diceValues);
     }
 
-    public int calculateThrees(ArrayList<Integer> diceValues) {
+    public int calculateThrees(List<Integer> diceValues) {
         return sumOfParticularNumber(3, diceValues);
     }
 
-    public int calculateFours(ArrayList<Integer> diceValues) {
+    public int calculateFours(List<Integer> diceValues) {
         return sumOfParticularNumber(4, diceValues);
     }
 
-    public int calculateFives(ArrayList<Integer> diceValues) {
+    public int calculateFives(List<Integer> diceValues) {
         return sumOfParticularNumber(5, diceValues);
     }
 
-    public int calculateSixes(ArrayList<Integer> diceValues) {
+    public int calculateSixes(List<Integer> diceValues) {
         return sumOfParticularNumber(6, diceValues);
     }
 
-    private int sumOfParticularNumber(int number, ArrayList<Integer> diceValues) {
-        ArrayList<Integer> matchingValues = new ArrayList<>(diceValues);
+    private int sumOfParticularNumber(int number, List<Integer> diceValues) {
+        List<Integer> matchingValues = new ArrayList<>(diceValues);
         matchingValues.removeIf(value -> (value != number));
         return sum(matchingValues);
     }
 
-    public int calculatePair(ArrayList<Integer> diceValues) {
+    public int calculatePair(List<Integer> diceValues) {
         return highestPairIn(diceValues) * 2;
     }
 
-    private int highestPairIn(ArrayList<Integer> diceValues) {
-        ArrayList<Integer> sortedValues = new ArrayList<>(diceValues);
+    private int highestPairIn(List<Integer> diceValues) {
+        List<Integer> sortedValues = new ArrayList<>(diceValues);
         int highestPair = 0;
         Collections.sort(sortedValues);
         Collections.reverse(sortedValues);
@@ -92,8 +92,8 @@ public class ScoreCalculator {
         return highestPair;
     }
 
-    private ArrayList<Integer> pairsIn(ArrayList<Integer> diceValues) {
-        HashMap<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
+    private ArrayList<Integer> pairsIn(List<Integer> diceValues) {
+        Map<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
         ArrayList<Integer> pairs = new ArrayList<>();
 
         for (int value : frequenciesByValue.keySet()) {
@@ -105,7 +105,7 @@ public class ScoreCalculator {
         return pairs;
     }
 
-    private HashMap<Integer, Integer> frequenciesOf(ArrayList<Integer> diceValues) {
+    private HashMap<Integer, Integer> frequenciesOf(List<Integer> diceValues) {
         HashMap<Integer, Integer> frequenciesByValue = new HashMap<>();
         for (int value : diceValues) {
             frequenciesByValue.put(value, frequenciesByValue.getOrDefault(value, 0) + 1);
@@ -113,8 +113,8 @@ public class ScoreCalculator {
         return frequenciesByValue;
     }
 
-    public int calculateTwoPairs(ArrayList<Integer> diceValues) {
-        ArrayList<Integer> pairs = pairsIn(diceValues);
+    public int calculateTwoPairs(List<Integer> diceValues) {
+        List<Integer> pairs = pairsIn(diceValues);
 
         if (pairs.size() == 2) {
             return sum(pairs) * 2;
@@ -123,12 +123,12 @@ public class ScoreCalculator {
         }
     }
 
-    public int calculateThreeOfAKind(ArrayList<Integer> diceValues) {
+    public int calculateThreeOfAKind(List<Integer> diceValues) {
         return calculateXOfAKind(3, diceValues);
     }
 
-    private int calculateXOfAKind(int number, ArrayList<Integer> diceValues) {
-        HashMap<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
+    private int calculateXOfAKind(int number, List<Integer> diceValues) {
+        Map<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
 
         for (int value : frequenciesByValue.keySet()) {
             if (frequenciesByValue.get(value) >= number) {
@@ -139,16 +139,16 @@ public class ScoreCalculator {
         return 0;
     }
 
-    public int calculateFourOfAKind(ArrayList<Integer> diceValues) {
+    public int calculateFourOfAKind(List<Integer> diceValues) {
         return calculateXOfAKind(4, diceValues);
     }
 
-    public int calculateSmallStraight(ArrayList<Integer> diceValues) {
+    public int calculateSmallStraight(List<Integer> diceValues) {
         return calculateStraight(smallStraight, diceValues);
     }
 
-    private int calculateStraight(ArrayList<Integer> straightType, ArrayList<Integer> diceValues) {
-        ArrayList<Integer> sortedValues = new ArrayList<>(diceValues);
+    private int calculateStraight(List<Integer> straightType, List<Integer> diceValues) {
+        List<Integer> sortedValues = new ArrayList<>(diceValues);
         Collections.sort(sortedValues);
 
         if (sortedValues.equals(straightType)) {
@@ -158,11 +158,11 @@ public class ScoreCalculator {
         }
     }
 
-    public int calculateLargeStraight(ArrayList<Integer> diceValues) {
+    public int calculateLargeStraight(List<Integer> diceValues) {
         return calculateStraight(largeStraight, diceValues);
     }
 
-    public int calculateFullHouse(ArrayList<Integer> diceValues) {
+    public int calculateFullHouse(List<Integer> diceValues) {
         if (isFullHouse(diceValues)) {
             return sum(diceValues);
         } else {
@@ -170,8 +170,8 @@ public class ScoreCalculator {
         }
     }
 
-    private boolean isFullHouse(ArrayList<Integer> diceValues) {
-        HashMap<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
+    private boolean isFullHouse(List<Integer> diceValues) {
+        Map<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
         return frequenciesByValue.containsValue(2) && frequenciesByValue.containsValue(3);
     }
 }
