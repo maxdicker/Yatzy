@@ -1,5 +1,7 @@
 package com.max;
 
+//Use hashmap for everything
+//Once done, break calculations out into many subclasses. Will make game controlling easier?
 import java.util.*;
 
 public class ScoreCalculator {
@@ -75,13 +77,18 @@ public class ScoreCalculator {
     }
 
     private int highestPairIn(ArrayList<Integer> diceValues) {
+        ArrayList<Integer> sortedValues = new ArrayList<>(diceValues);
         int highestPair = 0;
+        Collections.sort(sortedValues);
+        Collections.reverse(sortedValues);
 
-        for (int pair: pairsIn(diceValues)) {
-            if (pair > highestPair) {
-                highestPair = pair;
+        for (int i = 0; i < sortedValues.size() - 1; i++) {
+            if (sortedValues.get(i).equals(sortedValues.get(i + 1))) {
+                highestPair = sortedValues.get(i);
+                break;
             }
         }
+
         return highestPair;
     }
 
@@ -137,9 +144,14 @@ public class ScoreCalculator {
     }
 
     public int calculateSmallStraight(ArrayList<Integer> diceValues) {
+        return calculateStraight(smallStraight, diceValues);
+    }
+
+    private int calculateStraight(ArrayList<Integer> straightType, ArrayList<Integer> diceValues) {
         ArrayList<Integer> sortedValues = new ArrayList<>(diceValues);
         Collections.sort(sortedValues);
-        if (sortedValues.equals(smallStraight)) {
+
+        if (sortedValues.equals(straightType)) {
             return sum(diceValues);
         } else {
             return 0;
@@ -147,13 +159,7 @@ public class ScoreCalculator {
     }
 
     public int calculateLargeStraight(ArrayList<Integer> diceValues) {
-        ArrayList<Integer> sortedValues = new ArrayList<>(diceValues);
-        Collections.sort(sortedValues);
-        if (sortedValues.equals(largeStraight)) {
-            return sum(diceValues);
-        } else {
-            return 0;
-        }
+        return calculateStraight(largeStraight, diceValues);
     }
 
     public int calculateFullHouse(ArrayList<Integer> diceValues) {

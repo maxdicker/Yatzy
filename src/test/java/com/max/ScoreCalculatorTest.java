@@ -29,6 +29,12 @@ public class ScoreCalculatorTest {
     }
 
     @Test
+    public void incompleteYatzyReturns0()
+    {
+        assertEquals(0, calculator.calculateYatzy(new ArrayList<> (Arrays.asList(6,6,5,6,6))));
+    }
+
+    @Test
     public void onesReturnsSumOfAllOnes()
     {
         assertEquals(3, calculator.calculateOnes(new ArrayList<> (Arrays.asList(1,1,4,6,1))));
@@ -65,7 +71,7 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    public void pairReturnsSumOfTwoHighestMatching()
+    public void pairReturnsSumOfTwoHighestMatchingValues()
     {
         assertEquals(10, calculator.calculatePair(new ArrayList<> (Arrays.asList(2,2,5,3,5))));
     }
@@ -77,15 +83,33 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    public void threeOfAKindReturnsSumOfThreeMatching()
+    public void incompleteTwoPairsReturns0()
+    {
+        assertEquals(0, calculator.calculateTwoPairs(new ArrayList<> (Arrays.asList(4,4,3,5,6))));
+    }
+
+    @Test
+    public void threeOfAKindReturnsSumOfThreeMatchingValues()
     {
         assertEquals(12, calculator.calculateThreeOfAKind(new ArrayList<> (Arrays.asList(4,4,4,5,4))));
     }
 
     @Test
-    public void fourOfAKindReturnsSumOfFourMatching()
+    public void incompleteThreeOfAKindReturns0()
+    {
+        assertEquals(0, calculator.calculateThreeOfAKind(new ArrayList<> (Arrays.asList(4,4,5,5,1))));
+    }
+
+    @Test
+    public void fourOfAKindReturnsSumOfFourMatchingValues()
     {
         assertEquals(20, calculator.calculateFourOfAKind(new ArrayList<> (Arrays.asList(5,5,5,5,5))));
+    }
+
+    @Test
+    public void incompleteFourOfAKindReturns0()
+    {
+        assertEquals(0, calculator.calculateFourOfAKind(new ArrayList<> (Arrays.asList(5,5,5,1,1))));
     }
 
     @Test
@@ -95,14 +119,32 @@ public class ScoreCalculatorTest {
     }
 
     @Test
+    public void incompleteSmallStraightReturns0()
+    {
+        assertEquals(0, calculator.calculateSmallStraight(new ArrayList<> (Arrays.asList(2,1,3,1,4))));
+    }
+
+    @Test
     public void largeStraightReturnsSumOfAll()
     {
         assertEquals(20, calculator.calculateLargeStraight(new ArrayList<> (Arrays.asList(5,6,3,2,4))));
     }
 
     @Test
+    public void incompleteLargeStraightReturns0()
+    {
+        assertEquals(0, calculator.calculateLargeStraight(new ArrayList<> (Arrays.asList(5,1,3,2,4))));
+    }
+
+    @Test
     public void fullHouseReturnsSumOfAll()
     {
         assertEquals(24, calculator.calculateFullHouse(new ArrayList<> (Arrays.asList(6,3,6,3,6))));
+    }
+
+    @Test
+    public void incompleteFullHouseReturns0()
+    {
+        assertEquals(0, calculator.calculateFullHouse(new ArrayList<> (Arrays.asList(2,2,2,2,2))));
     }
 }
