@@ -31,11 +31,7 @@ public class ScoreCalculator {
 
     public int calculateYatzy(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
-        if (allEqual(frequenciesByValue)) {
-            return yatzyScore;
-        } else {
-            return 0;
-        }
+        return (allEqual(frequenciesByValue)) ? yatzyScore : 0;
     }
 
     private boolean allEqual(Map<Integer, Integer> frequenciesByValue) {
@@ -125,21 +121,13 @@ public class ScoreCalculator {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         Map<Integer, Integer> straight = toFrequencyMap(straightDefinition);
 
-        if (frequenciesByValue.equals(straight)) {
-            return sum(frequenciesByValue);
-        } else {
-            return 0;
-        }
+        return (frequenciesByValue.equals(straight)) ? sum(frequenciesByValue) : 0;
     }
 
     public int calculateFullHouse(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
 
-        if (isFullHouse(frequenciesByValue)) {
-            return sum(frequenciesByValue);
-        } else {
-            return 0;
-        }
+        return (isFullHouse(frequenciesByValue)) ? sum(frequenciesByValue) : 0;
     }
 
     private boolean isFullHouse(Map<Integer, Integer> frequenciesByValue) {
