@@ -9,95 +9,85 @@ public class ScoreCalculator {
     private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));
     private static final ArrayList<Integer> largeStraight = new ArrayList<>(Arrays.asList(2,3,4,5,6));
 
-    public int calculateChance(List<Integer> diceValues) {
-        return sum(diceValues);
+    public int calculateChance(List<Integer> values) {
+        Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
+        return sum(frequenciesByValue);
     }
 
-    private int sum(List<Integer> diceValues) {
+    private TreeMap<Integer, Integer> toFrequencyMap(List<Integer> values) {
+        TreeMap<Integer, Integer> frequenciesByValue = new TreeMap<>();
+        for (int value : values) {
+            frequenciesByValue.put(value, frequenciesByValue.getOrDefault(value, 0) + 1);
+        }
+        return frequenciesByValue;
+    }
+
+    private int sum(Map<Integer, Integer> frequenciesByValue) {
         int sum = 0;
-        for (int value : diceValues) {
-            sum += value;
+        for (int value : frequenciesByValue.keySet()) {
+            sum += (value * frequenciesByValue.get(value));
         }
         return sum;
     }
 
-    public int calculateYatzy(List<Integer> diceValues) {
-        if (allEqual(diceValues)) {
+    public int calculateYatzy(List<Integer> values) {
+        Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
+        if (allEqual(frequenciesByValue)) {
             return yatzyScore;
         } else {
             return 0;
         }
     }
 
-    private boolean allEqual(List<Integer> diceValues) {
-        boolean allEqual = true;
-        int reference = diceValues.get(0);
-
-        for (Integer value : diceValues) {
-            if (!value.equals(reference)) {
-                allEqual = false;
-                break;
-            }
-        }
-        return allEqual;
+    private boolean allEqual(Map<Integer, Integer> frequenciesByValue) {
+        return frequenciesByValue.keySet().size() == 1;
     }
 
-    public int calculateOnes(List<Integer> diceValues) {
-        return sumOfParticularNumber(1, diceValues);
+    public int calculateOnes(List<Integer> values) {
+        return sumOfParticularNumber(1, values);
     }
 
-    public int calculateTwos(List<Integer> diceValues) {
-        return sumOfParticularNumber(2, diceValues);
+    public int calculateTwos(List<Integer> values) {
+        return sumOfParticularNumber(2, values);
     }
 
-    public int calculateThrees(List<Integer> diceValues) {
-        return sumOfParticularNumber(3, diceValues);
+    public int calculateThrees(List<Integer> values) {
+        return sumOfParticularNumber(3, values);
     }
 
-    public int calculateFours(List<Integer> diceValues) {
-        return sumOfParticularNumber(4, diceValues);
+    public int calculateFours(List<Integer> values) {
+        return sumOfParticularNumber(4, values);
     }
 
-    public int calculateFives(List<Integer> diceValues) {
-        return sumOfParticularNumber(5, diceValues);
+    public int calculateFives(List<Integer> values) {
+        return sumOfParticularNumber(5, values);
     }
 
-    public int calculateSixes(List<Integer> diceValues) {
-        return sumOfParticularNumber(6, diceValues);
+    public int calculateSixes(List<Integer> values) {
+        return sumOfParticularNumber(6, values);
     }
 
-    private int sumOfParticularNumber(int number, List<Integer> diceValues) {
-        List<Integer> matchingValues = new ArrayList<>(diceValues);
-        matchingValues.removeIf(value -> (value != number));
-        return sum(matchingValues);
+    private int sumOfParticularNumber(int number, List<Integer> values) {
+        Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
+        return (number * frequenciesByValue.getOrDefault(number, 0));
     }
 
-    public int calculatePair(List<Integer> diceValues) {
-        return highestPairIn(diceValues) * 2;
+    public int calculatePair(List<Integer> values) {
+        Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
+        return findHighestPair(frequenciesByValue) * 2;
     }
 
-    private int highestPairIn(List<Integer> diceValues) {
-        List<Integer> sortedValues = new ArrayList<>(diceValues);
-        int highestPair = 0;
-        Collections.sort(sortedValues);
-        Collections.reverse(sortedValues);
-
-        for (int i = 0; i < sortedValues.size() - 1; i++) {
-            if (sortedValues.get(i).equals(sortedValues.get(i + 1))) {
-                highestPair = sortedValues.get(i);
-                break;
-            }
-        }
-
-        return highestPair;
+    private int findHighestPair(Map<Integer, Integer> frequenciesByValue) {
+        List<Integer> pairs = findPairs(frequenciesByValue);
+        Collections.reverse(pairs);
+        return pairs.get(0);
     }
 
-    private ArrayList<Integer> pairsIn(List<Integer> diceValues) {
-        Map<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
+    private ArrayList<Integer> findPairs(Map<Integer, Integer> frequenciesByValue) {
         ArrayList<Integer> pairs = new ArrayList<>();
 
         for (int value : frequenciesByValue.keySet()) {
-            if (frequenciesByValue.get(value) >= 2) {
+            if (frequenciesByValue.get(value) > 1) {
                 pairs.add(value);
             }
         }
@@ -105,30 +95,23 @@ public class ScoreCalculator {
         return pairs;
     }
 
-    private HashMap<Integer, Integer> frequenciesOf(List<Integer> diceValues) {
-        HashMap<Integer, Integer> frequenciesByValue = new HashMap<>();
-        for (int value : diceValues) {
-            frequenciesByValue.put(value, frequenciesByValue.getOrDefault(value, 0) + 1);
-        }
-        return frequenciesByValue;
-    }
-
-    public int calculateTwoPairs(List<Integer> diceValues) {
-        List<Integer> pairs = pairsIn(diceValues);
+    public int calculateTwoPairs(List<Integer> values) {
+        Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
+        List<Integer> pairs = findPairs(frequenciesByValue);
 
         if (pairs.size() == 2) {
-            return sum(pairs) * 2;
+            return (pairs.get(0) + pairs.get(1)) * 2;
         } else {
             return 0;
         }
     }
 
-    public int calculateThreeOfAKind(List<Integer> diceValues) {
-        return calculateXOfAKind(3, diceValues);
+    public int calculateThreeOfAKind(List<Integer> values) {
+        return calculateXOfAKind(3, values);
     }
 
-    private int calculateXOfAKind(int number, List<Integer> diceValues) {
-        Map<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
+    private int calculateXOfAKind(int number, List<Integer> values) {
+        Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
 
         for (int value : frequenciesByValue.keySet()) {
             if (frequenciesByValue.get(value) >= number) {
@@ -139,39 +122,41 @@ public class ScoreCalculator {
         return 0;
     }
 
-    public int calculateFourOfAKind(List<Integer> diceValues) {
-        return calculateXOfAKind(4, diceValues);
+    public int calculateFourOfAKind(List<Integer> values) {
+        return calculateXOfAKind(4, values);
     }
 
-    public int calculateSmallStraight(List<Integer> diceValues) {
-        return calculateStraight(smallStraight, diceValues);
+    public int calculateSmallStraight(List<Integer> values) {
+        return calculateStraight(smallStraight, values);
     }
 
-    private int calculateStraight(List<Integer> straightType, List<Integer> diceValues) {
-        List<Integer> sortedValues = new ArrayList<>(diceValues);
+    private int calculateStraight(List<Integer> straightType, List<Integer> values) {
+        List<Integer> sortedValues = new ArrayList<>(values);
         Collections.sort(sortedValues);
 
         if (sortedValues.equals(straightType)) {
-            return sum(diceValues);
+            Map<Integer, Integer> frequenciesByValue = toFrequencyMap(sortedValues);
+            return sum(frequenciesByValue);
         } else {
             return 0;
         }
     }
 
-    public int calculateLargeStraight(List<Integer> diceValues) {
-        return calculateStraight(largeStraight, diceValues);
+    public int calculateLargeStraight(List<Integer> values) {
+        return calculateStraight(largeStraight, values);
     }
 
-    public int calculateFullHouse(List<Integer> diceValues) {
-        if (isFullHouse(diceValues)) {
-            return sum(diceValues);
+    public int calculateFullHouse(List<Integer> values) {
+        if (isFullHouse(values)) {
+            Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
+            return sum(frequenciesByValue);
         } else {
             return 0;
         }
     }
 
-    private boolean isFullHouse(List<Integer> diceValues) {
-        Map<Integer, Integer> frequenciesByValue = frequenciesOf(diceValues);
+    private boolean isFullHouse(List<Integer> values) {
+        Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         return frequenciesByValue.containsValue(2) && frequenciesByValue.containsValue(3);
     }
 }
