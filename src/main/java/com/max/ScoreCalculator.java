@@ -7,7 +7,63 @@ public class ScoreCalculator {
     private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));
     private static final ArrayList<Integer> largeStraight = new ArrayList<>(Arrays.asList(2,3,4,5,6));
 
-    public int calcChance(List<Integer> values) {
+    public int getScore(ScoreCategory category, List<Integer> values) {
+        int score;
+
+        switch (category) {
+            case CHANCE:
+                score = calcChance(values);
+                break;
+            case YATZY:
+                score = calcYatzy(values);
+                break;
+            case ONES:
+                score = calcSumOfParticularNumber(1, values);
+                break;
+            case TWOS:
+                score = calcSumOfParticularNumber(2, values);
+                break;
+            case THREES:
+                score = calcSumOfParticularNumber(3, values);
+                break;
+            case FOURS:
+                score = calcSumOfParticularNumber(4, values);
+                break;
+            case FIVES:
+                score = calcSumOfParticularNumber(5, values);
+                break;
+            case SIXES:
+                score = calcSumOfParticularNumber(6, values);
+                break;
+            case PAIR:
+                score = calcXOfAKind(2, values);
+                break;
+            case TWO_PAIRS:
+                score = calcTwoPairs(values);
+                break;
+            case THREE_OF_A_KIND:
+                score = calcXOfAKind(3, values);
+                break;
+            case FOUR_OF_A_KIND:
+                score = calcXOfAKind(4, values);
+                break;
+            case SMALL_STRAIGHT:
+                score = calcStraight(smallStraight, values);
+                break;
+            case LARGE_STRAIGHT:
+                score = calcStraight(largeStraight, values);
+                break;
+            case FULL_HOUSE:
+                score = calcFullHouse(values);
+                break;
+            default:
+                score = 0;
+        }
+
+        return score;
+    }
+
+    private int calcChance(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         return sum(frequenciesByValue);
     }
@@ -28,7 +84,7 @@ public class ScoreCalculator {
         return sum;
     }
 
-    public int calcYatzy(List<Integer> values) {
+    private int calcYatzy(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         return (allEqual(frequenciesByValue)) ? yatzyScore : 0;
     }
@@ -37,12 +93,12 @@ public class ScoreCalculator {
         return frequenciesByValue.keySet().size() == 1;
     }
 
-    public int calcSumOfParticularNumber(int number, List<Integer> values) {
+    private int calcSumOfParticularNumber(int number, List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         return (number * frequenciesByValue.getOrDefault(number, 0));
     }
 
-    public int calcXOfAKind(int number, List<Integer> values) {
+    private int calcXOfAKind(int number, List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
 
         for (Map.Entry<Integer, Integer> entry : frequenciesByValue.entrySet()) {
@@ -54,7 +110,7 @@ public class ScoreCalculator {
         return 0;
     }
 
-    public int calcTwoPairs(List<Integer> values) {
+    private int calcTwoPairs(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         int score = 0;
         int numPairsSeen = 0;
@@ -72,14 +128,6 @@ public class ScoreCalculator {
         return 0;
     }
 
-    public int calcSmallStraight(List<Integer> values) {
-        return calcStraight(smallStraight, values);
-    }
-
-    public int calcLargeStraight(List<Integer> values) {
-        return calcStraight(largeStraight, values);
-    }
-
     private int calcStraight(List<Integer> straightDefinition, List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         Map<Integer, Integer> straight = toFrequencyMap(straightDefinition);
@@ -87,7 +135,7 @@ public class ScoreCalculator {
         return (frequenciesByValue.equals(straight)) ? sum(frequenciesByValue) : 0;
     }
 
-    public int calcFullHouse(List<Integer> values) {
+    private int calcFullHouse(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
 
         return (isFullHouse(frequenciesByValue)) ? sum(frequenciesByValue) : 0;
