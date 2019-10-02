@@ -11,8 +11,9 @@ public class Dice {
         roll();
     }
 
-    private void roll() {
+    public int roll() {
         value = (int) (Math.random() * MAX_VALUE + MIN_VALUE);
+        return value;
     }
 
     public int getValue() {
