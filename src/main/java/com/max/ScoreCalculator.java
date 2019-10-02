@@ -1,6 +1,5 @@
 package com.max;
 
-//Once done, break calculations out into many subclasses. Will make game controlling easier?
 import java.util.*;
 
 public class ScoreCalculator {
@@ -8,7 +7,7 @@ public class ScoreCalculator {
     private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));
     private static final ArrayList<Integer> largeStraight = new ArrayList<>(Arrays.asList(2,3,4,5,6));
 
-    public int calculateChance(List<Integer> values) {
+    public int calcChance(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         return sum(frequenciesByValue);
     }
@@ -29,7 +28,7 @@ public class ScoreCalculator {
         return sum;
     }
 
-    public int calculateYatzy(List<Integer> values) {
+    public int calcYatzy(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         return (allEqual(frequenciesByValue)) ? yatzyScore : 0;
     }
@@ -38,48 +37,12 @@ public class ScoreCalculator {
         return frequenciesByValue.keySet().size() == 1;
     }
 
-    public int calculateOnes(List<Integer> values) {
-        return sumOfParticularNumber(1, values);
-    }
-
-    public int calculateTwos(List<Integer> values) {
-        return sumOfParticularNumber(2, values);
-    }
-
-    public int calculateThrees(List<Integer> values) {
-        return sumOfParticularNumber(3, values);
-    }
-
-    public int calculateFours(List<Integer> values) {
-        return sumOfParticularNumber(4, values);
-    }
-
-    public int calculateFives(List<Integer> values) {
-        return sumOfParticularNumber(5, values);
-    }
-
-    public int calculateSixes(List<Integer> values) {
-        return sumOfParticularNumber(6, values);
-    }
-
-    private int sumOfParticularNumber(int number, List<Integer> values) {
+    public int calcSumOfParticularNumber(int number, List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         return (number * frequenciesByValue.getOrDefault(number, 0));
     }
 
-    public int calculatePair(List<Integer> values) {
-        return calculateXOfAKind(2, values);
-    }
-
-    public int calculateThreeOfAKind(List<Integer> values) {
-        return calculateXOfAKind(3, values);
-    }
-
-    public int calculateFourOfAKind(List<Integer> values) {
-        return calculateXOfAKind(4, values);
-    }
-
-    private int calculateXOfAKind(int number, List<Integer> values) {
+    public int calcXOfAKind(int number, List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
 
         for (Map.Entry<Integer, Integer> entry : frequenciesByValue.entrySet()) {
@@ -91,7 +54,7 @@ public class ScoreCalculator {
         return 0;
     }
 
-    public int calculateTwoPairs(List<Integer> values) {
+    public int calcTwoPairs(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         int score = 0;
         int numPairsSeen = 0;
@@ -109,22 +72,22 @@ public class ScoreCalculator {
         return 0;
     }
 
-    public int calculateSmallStraight(List<Integer> values) {
-        return calculateStraight(smallStraight, values);
+    public int calcSmallStraight(List<Integer> values) {
+        return calcStraight(smallStraight, values);
     }
 
-    public int calculateLargeStraight(List<Integer> values) {
-        return calculateStraight(largeStraight, values);
+    public int calcLargeStraight(List<Integer> values) {
+        return calcStraight(largeStraight, values);
     }
 
-    private int calculateStraight(List<Integer> straightDefinition, List<Integer> values) {
+    private int calcStraight(List<Integer> straightDefinition, List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         Map<Integer, Integer> straight = toFrequencyMap(straightDefinition);
 
         return (frequenciesByValue.equals(straight)) ? sum(frequenciesByValue) : 0;
     }
 
-    public int calculateFullHouse(List<Integer> values) {
+    public int calcFullHouse(List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
 
         return (isFullHouse(frequenciesByValue)) ? sum(frequenciesByValue) : 0;
