@@ -2,7 +2,7 @@ package com.max;
 
 import java.util.Scanner;
 
-public class ConsoleIO implements IInputOutput{
+public class ConsoleIO implements IO {
 
     private Scanner keyboardInput = new Scanner(System.in);
 

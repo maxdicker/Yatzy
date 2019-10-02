@@ -3,12 +3,13 @@ package com.max;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockIO implements IInputOutput{
+public class MockIO implements IO {
 
     private String mockInput;
     private List<String> mockOutput = new ArrayList<>();
 
     public MockIO() {
+        this.mockInput = "";
     }
 
     public MockIO(String mockInput) {

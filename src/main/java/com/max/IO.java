@@ -1,6 +1,6 @@
 package com.max;
 
-public interface IInputOutput {
+public interface IO {
     String read();
     void write(String s);
 }

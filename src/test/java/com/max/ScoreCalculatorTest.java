@@ -147,4 +147,6 @@ public class ScoreCalculatorTest {
     {
         assertEquals(0, calculator.getScore(ScoreCategory.FULL_HOUSE, new ArrayList<> (Arrays.asList(2,2,2,2,2))));
     }
+
+
 }

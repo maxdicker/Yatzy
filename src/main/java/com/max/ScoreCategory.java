@@ -17,9 +17,9 @@ public enum ScoreCategory {
     LARGE_STRAIGHT (14),
     FULL_HOUSE (15);
 
-    private int identifier;
+    public String identifier;
 
     ScoreCategory(int identifier) {
-        this.identifier = identifier;
+        this.identifier = String.valueOf(identifier);
     }
 }

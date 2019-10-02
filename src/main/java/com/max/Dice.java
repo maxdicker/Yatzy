@@ -1,7 +1,5 @@
 package com.max;
 
-import java.util.List;
-
 public class Dice {
     private final int MAX_VALUE = 6;
     private final int MIN_VALUE = 1;
