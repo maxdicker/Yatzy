@@ -1,17 +1,16 @@
 package com.max;
 
-public class Dice {
+public class Die {
     private final int MAX_VALUE = 6;
     private final int MIN_VALUE = 1;
     private int value;
 
-    public Dice() {
-        roll();
+    public Die(int value) {
+        this.value = value;
     }
 
-    public int roll() {
+    public void roll() {
         value = (int) (Math.random() * MAX_VALUE + MIN_VALUE);
-        return value;
     }
 
     public int getValue() {
