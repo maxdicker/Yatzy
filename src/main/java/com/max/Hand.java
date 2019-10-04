@@ -28,6 +28,15 @@ public class Hand {
         return values;
     }
 
+    public void reRoll(int value) {
+        for (Die die : dice) {
+            if (value == die.getValue()) {
+                die.roll();
+                break;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String string = dice.toString();

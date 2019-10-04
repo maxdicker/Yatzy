@@ -1,6 +1,5 @@
 package com.max;
 
-import java.util.List;
 import static org.junit.Assert.*;
 
 public class YatzyGameRunner {
@@ -17,11 +16,11 @@ public class YatzyGameRunner {
         game.handleRoll(hand);
     }
 
-    public void assertPromptsPlayerForCategory(YatzyGamePlayer player) {
+    public void assertPromptsPlayerForCategory(Player player) {
         assertEquals(IOGetter.getOutput().get(0), "hand is x, choose a category");
     }
 
-    public void assertShowsScoreToPlayer(YatzyGamePlayer player, int score) {
+    public void assertShowsScoreToPlayer(Player player, int score) {
         assertEquals(IOGetter.getOutput().get(1), score);
     }
 

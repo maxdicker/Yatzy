@@ -16,13 +16,13 @@ public class HandTest {
     public void newHandContainsValuesBetweenOneAndSix()
     {
         Hand hand = new Hand();
-        boolean condition = true;
+        boolean valueIsBetweenRange = true;
         for (int value : hand.getValues()) {
             if (value < 1 || value > 6) {
-                condition = false;
+                valueIsBetweenRange = false;
                 break;
             }
         }
-        assertTrue(condition);
+        assertTrue(valueIsBetweenRange);
     }
 }

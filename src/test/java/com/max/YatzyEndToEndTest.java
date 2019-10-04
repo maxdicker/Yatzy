@@ -12,7 +12,7 @@ public class YatzyEndToEndTest {
     public void WhenUserChoosesCategory_GameShouldPrintScore()
     {
         YatzyGameRunner game = new YatzyGameRunner();
-        YatzyGamePlayer player = new YatzyGamePlayer();
+        Player player = new Player();
         game.handleRoll(new Hand(Arrays.asList(1, 1, 1, 1, 1)));
         game.assertPromptsPlayerForCategory(player);
         game.chooseCategory(ScoreCategory.FOUR_OF_A_KIND);
