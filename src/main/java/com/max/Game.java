@@ -15,13 +15,24 @@ public class Game {
         io.write("hand is x, choose a category");
     }
 
-
     public void playYatzy() {
-        UserHandler handler = new UserHandler();
-        Hand hand = new Hand();
-        handler.printHand(io, hand);
-        ScoreCategory category = handler.getCategoryFromUser(io);
-        int score = calculator.getScore(category, hand.getValues());
-        handler.printScore(io, score);
+        Player player = new Player();
+        UserHandler handler = new UserHandler(io);
+        handler.printWelcome();
+
+        while (player.hasUnusedScoreCategories()) {
+            handler.printHand(player);
+            player.reRoll(handler.getDiceToReRollFromUser());
+            handler.printHand(player);
+            player.reRoll(handler.getDiceToReRollFromUser());
+            handler.printHand(player);
+
+            handler.printScoringOptions(player);
+            ScoreCategory category = handler.getCategoryFromUser();
+            int score = calculator.getScore(category, player.getHand().getValues());
+            player.attributeScore(category, score);
+            handler.printScore(player);
+            player.newHand();
+        }
     }
 }

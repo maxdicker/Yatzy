@@ -1,8 +1,20 @@
 package com.max;
 
-public class UserHandler {
+import java.util.ArrayList;
+import java.util.List;
 
-    public ScoreCategory getCategoryFromUser(IO io) {
+public class UserHandler {
+    private IO io;
+
+    public UserHandler(IO io) {
+        this.io = io;
+    }
+
+    public void printWelcome() {
+        io.write("Welcome to Yatzy");
+    }
+
+    public ScoreCategory getCategoryFromUser() {
         io.write("Which score category would you like to calculate?");
         String input = io.read();
 
@@ -12,15 +24,39 @@ public class UserHandler {
             }
         }
 
-        return getCategoryFromUser(io);
+        return getCategoryFromUser();
     }
 
-    public void printHand(IO io, Hand hand) {
-        io.write("Your hand is " + hand);
+    public void printHand(Player player) {
+        io.write("Your hand is " + player.getHand());
     }
 
-    public void printScore(IO io, int score) {
-        io.write("Your score is " + score);
+    public void printScore(Player player) {
+        io.write("Your score is " + player.getTotalScore());
     }
+
+    public void printScoringOptions(Player player) {
+        for (ScoreCategory category : ScoreCategory.values()){
+            if (player.canChoose(category)) {
+                io.write(category.identifier + ". " + category);
+            } else {
+                io.write(category + "has already been selected. You scored " + player.getScore(category));
+            }
+        }
+    }
+
+    public List<Integer> getDiceToReRollFromUser() {
+        List<Integer> diceValues = new ArrayList<>();
+        io.write("Which dice would you like to roll again?");
+        io.write("Please enter dice values one at a time. Enter 9 to stop.");
+        String input = "";
+        while (!input.equals("9")) {
+            input = io.read();
+            diceValues.add(Integer.parseInt(input));
+        }
+        return diceValues;
+    }
+
+
 
 }
