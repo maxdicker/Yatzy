@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hand {
-    List<Die> dice;
+    private List<Die> dice;
 
     public Hand() {
         dice = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            dice.add(new Die(1));
-            dice.get(i).roll();
+            dice.add(new Die());
         }
     }
 
@@ -21,7 +20,7 @@ public class Hand {
         }
     }
 
-    public List<Integer> values() {
+    public List<Integer> getValues() {
         List<Integer> values = new ArrayList<>();
         for (Die die : dice) {
             values.add(die.getValue());
@@ -31,10 +30,7 @@ public class Hand {
 
     @Override
     public String toString() {
-        String hand = "";
-        for (Die die : dice) {
-            hand = hand + die + ",";
-        }
-        return hand;
+        String string = dice.toString();
+        return string.substring(1, string.length() - 1);
     }
 }

@@ -5,6 +5,10 @@ public class Die {
     private final int MIN_VALUE = 1;
     private int value;
 
+    public Die() {
+        roll();
+    }
+
     public Die(int value) {
         this.value = value;
     }

@@ -18,10 +18,10 @@ public class Game {
 
     public void playYatzy() {
         UserHandler handler = new UserHandler();
-        Hand hand = new Hand(Arrays.asList(1,1,1,1,1));
+        Hand hand = new Hand();
         handler.printHand(io, hand);
         ScoreCategory category = handler.getCategoryFromUser(io);
-        int score = calculator.getScore(category, hand.values());
+        int score = calculator.getScore(category, hand.getValues());
         handler.printScore(io, score);
     }
 }
