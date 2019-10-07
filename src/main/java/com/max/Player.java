@@ -7,7 +7,6 @@ public class Player {
     private Scorecard scorecard;
 
     public Player() {
-        hand = new Hand();
         scorecard = new Scorecard();
     }
 

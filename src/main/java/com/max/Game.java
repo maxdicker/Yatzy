@@ -21,18 +21,18 @@ public class Game {
         handler.printWelcome();
 
         while (player.hasUnusedScoreCategories()) {
+            player.newHand();
             handler.printHand(player);
             player.reRoll(handler.getDiceToReRollFromUser());
             handler.printHand(player);
             player.reRoll(handler.getDiceToReRollFromUser());
             handler.printHand(player);
 
-            handler.printScoringOptions(player);
+            handler.printScoringOptions(player, calculator);
             ScoreCategory category = handler.getCategoryFromUser();
             int score = calculator.getScore(category, player.getHand().getValues());
             player.attributeScore(category, score);
             handler.printScore(player);
-            player.newHand();
         }
     }
 }
