@@ -39,10 +39,12 @@ public class Player {
     }
 
     public Boolean hasDice(List<Integer> values) {
+        List<Integer> handValues = this.hand.getDiceValues();
         for (int value : values) {
-            if (!hand.contains(value)) {
+            if (!handValues.contains(value)) {
                 return false;
             }
+            handValues.remove((Integer) value);
         }
         return true;
     }

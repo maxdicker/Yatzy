@@ -10,6 +10,7 @@ import java.util.Collections;
 public class GameTest {
 
     // Made methods public just to test them.
+
     @Test
     public void playerIsUnableToSelectCategoryThatIsUsed()
     {
@@ -30,7 +31,7 @@ public class GameTest {
         Hand hand = new Hand(Arrays.asList(1,2,3,3,3));
         Player player = new Player(hand);
         String inputToTerminateProcess = "9";
-        IO io = new MockIO(Arrays.asList("6", inputToTerminateProcess, "1", inputToTerminateProcess));
+        IO io = new MockIO(Arrays.asList("6", inputToTerminateProcess, "1", "1", inputToTerminateProcess, "1", inputToTerminateProcess));
         Game game = new Game(io);
 
         assertEquals(Collections.singletonList(1), game.getValidDiceSelection(player));
