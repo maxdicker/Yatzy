@@ -1,6 +1,7 @@
 package com.max;
 
 import java.util.List;
+import java.util.Set;
 
 public class Player {
     private Hand hand;
@@ -14,8 +15,8 @@ public class Player {
         return scorecard.getTotalScore();
     }
 
-    public int getScore(ScoreCategory category) {
-        return scorecard.getScore(category);
+    public int getSingleScore(ScoreCategory category) {
+        return scorecard.getSingleScore(category);
     }
 
     public void attributeScore(ScoreCategory category, int score) {
@@ -33,12 +34,11 @@ public class Player {
     }
 
     public Boolean hasUnusedScoreCategories() {
-        for (ScoreCategory category : ScoreCategory.values()) {
-            if (canChoose(category)) {
-                return true;
-            }
-        }
-        return false;
+        return scorecard.hasAvailableCategories();
+    }
+
+    public Set<ScoreCategory> getUnusedCategories() {
+        return scorecard.getAvailableCategories();
     }
 
     public Hand getHand() {

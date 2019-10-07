@@ -27,6 +27,7 @@ public class UserHandler {
             }
         }
 
+        io.write("That's not a valid calculation selection. Please try again.");
         return getCategoryFromUser();
     }
 
@@ -45,7 +46,7 @@ public class UserHandler {
             if (player.canChoose(category)) {
                 io.write(category.identifier + ". " + category + ": " + calculator.getScore(category, player.getHand().getValues()));
             } else {
-                io.write(category + " has already been selected. You scored " + player.getScore(category));
+                io.write(category + " has already been selected. You scored " + player.getSingleScore(category));
             }
         }
         io.write("");
@@ -63,4 +64,7 @@ public class UserHandler {
         return diceValues;
     }
 
+    public void printInvalidCategoryError() {
+        io.write("You have already selected that category. Please try again.");
+    }
 }

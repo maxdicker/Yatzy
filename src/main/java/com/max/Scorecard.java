@@ -1,19 +1,21 @@
 package com.max;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Scorecard {
-    private Map<ScoreCategory, Boolean> availabilityByCategory;
-    private Map<ScoreCategory, Integer> scoreByCategory;
+    private Set<ScoreCategory> availableCategories;
+    private Map<ScoreCategory, Integer> scoresByCategory;
     private int totalScore;
 
     public Scorecard() {
-        availabilityByCategory = new HashMap<>();
-        scoreByCategory = new HashMap<>();
+        availableCategories = new HashSet<>();
+        scoresByCategory = new HashMap<>();
         for (ScoreCategory category : ScoreCategory.values()) {
-            availabilityByCategory.put(category, true);
-            scoreByCategory.put(category, 0);
+            availableCategories.add(category);
+            scoresByCategory.put(category, 0);
         }
         totalScore = 0;
     }
@@ -22,17 +24,25 @@ public class Scorecard {
         return totalScore;
     }
 
-    public int getScore(ScoreCategory category) {
-        return scoreByCategory.get(category);
+    public int getSingleScore(ScoreCategory category) {
+        return scoresByCategory.get(category);
     }
 
     public Boolean isAvailable(ScoreCategory category) {
-        return availabilityByCategory.get(category);
+        return availableCategories.contains(category);
+    }
+
+    public Boolean hasAvailableCategories() {
+        return !availableCategories.isEmpty();
+    }
+
+    public Set<ScoreCategory> getAvailableCategories() {
+        return availableCategories;
     }
 
     public void registerScore(ScoreCategory category, int score) {
-        scoreByCategory.put(category, score);
-        availabilityByCategory.put(category, false);
+        scoresByCategory.put(category, score);
+        availableCategories.remove(category);
         totalScore = totalScore + score;
     }
 

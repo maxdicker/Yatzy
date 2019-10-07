@@ -1,7 +1,5 @@
 package com.max;
 
-import java.util.Arrays;
-
 public class Game {
     private IO io;
     private ScoreCalculator calculator;
@@ -29,10 +27,21 @@ public class Game {
             handler.printHand(player);
 
             handler.printScoringOptions(player, calculator);
-            ScoreCategory category = handler.getCategoryFromUser();
+            ScoreCategory category = getValidCategory(handler, player);
             int score = calculator.getScore(category, player.getHand().getValues());
             player.attributeScore(category, score);
             handler.printScore(player);
         }
+    }
+
+    private ScoreCategory getValidCategory(UserHandler handler, Player player) {
+        ScoreCategory category = handler.getCategoryFromUser();
+
+        if (player.canChoose(category)) {
+            return category;
+        }
+
+        handler.printInvalidCategoryError();
+        return getValidCategory(handler, player);
     }
 }
