@@ -1,34 +1,31 @@
 package com.max;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MockIO implements IO {
-    private String mockInput;
-    private String secondMockInput;
+    private List<String> mockInput;
+
     private int readCount;
 
     private List<String> mockOutput = new ArrayList<>();
 
     public MockIO() {
-        this.mockInput = "";
-        this.secondMockInput = "";
         this.readCount = 0;
     }
 
     public MockIO(String mockInput) {
-        this.mockInput = mockInput;
+        this.mockInput = new ArrayList<>(Collections.singletonList(mockInput));
     }
 
-    public MockIO(String mockInput, String secondMockInput) {
-        this.mockInput = mockInput;
-        this.secondMockInput = secondMockInput;
+    public MockIO(List<String> mockInput) {
+        this.mockInput = new ArrayList<>(mockInput);
     }
 
     @Override
     public String read() {
-        readCount++;
-        return readCount == 1 ? mockInput : secondMockInput;
+        return mockInput.get(readCount++);
     }
 
     @Override

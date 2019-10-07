@@ -11,6 +11,11 @@ public class Player {
         scorecard = new Scorecard();
     }
 
+    public Player(Hand hand) {
+        this.scorecard = new Scorecard();
+        this.hand = hand;
+    }
+
     public int getTotalScore() {
         return scorecard.getTotalScore();
     }
@@ -31,6 +36,15 @@ public class Player {
 
     public Boolean canChoose(ScoreCategory category) {
         return scorecard.isAvailable(category);
+    }
+
+    public Boolean hasDice(List<Integer> values) {
+        for (int value : values) {
+            if (!hand.contains(value)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Boolean hasUnusedScoreCategories() {

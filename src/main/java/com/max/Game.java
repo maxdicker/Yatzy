@@ -1,11 +1,15 @@
 package com.max;
 
+import java.util.List;
+
 public class Game {
     private IO io;
+    private UserHandler handler;
     private ScoreCalculator calculator;
 
     public Game(IO io) {
         this.io = io;
+        this.handler = new UserHandler(io);
         this.calculator = new ScoreCalculator();
     }
 
@@ -15,26 +19,25 @@ public class Game {
 
     public void playYatzy() {
         Player player = new Player();
-        UserHandler handler = new UserHandler(io);
         handler.printWelcome();
 
         while (player.hasUnusedScoreCategories()) {
             player.newHand();
             handler.printHand(player);
-            player.reRoll(handler.getDiceToReRollFromUser());
+            player.reRoll(getValidDiceSelection(player));
             handler.printHand(player);
-            player.reRoll(handler.getDiceToReRollFromUser());
+            player.reRoll(getValidDiceSelection(player));
             handler.printHand(player);
 
             handler.printScoringOptions(player, calculator);
-            ScoreCategory category = getValidCategory(handler, player);
-            int score = calculator.getScore(category, player.getHand().getValues());
+            ScoreCategory category = getValidCategorySelection(player);
+            int score = calculator.getScore(category, player.getHand().getDiceValues());
             player.attributeScore(category, score);
             handler.printScore(player);
         }
     }
 
-    private ScoreCategory getValidCategory(UserHandler handler, Player player) {
+    protected ScoreCategory getValidCategorySelection(Player player) {
         ScoreCategory category = handler.getCategoryFromUser();
 
         if (player.canChoose(category)) {
@@ -42,6 +45,17 @@ public class Game {
         }
 
         handler.printInvalidCategoryError();
-        return getValidCategory(handler, player);
+        return getValidCategorySelection(player);
+    }
+
+    protected List<Integer> getValidDiceSelection(Player player) {
+        List<Integer> dice = handler.getDiceToReRollFromUser();
+
+        if (player.hasDice(dice)) {
+            return dice;
+        }
+
+        handler.printInvalidDiceError();
+        return getValidDiceSelection(player);
     }
 }

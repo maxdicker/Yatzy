@@ -20,7 +20,7 @@ public class Hand {
         }
     }
 
-    public List<Integer> getValues() {
+    public List<Integer> getDiceValues() {
         List<Integer> values = new ArrayList<>();
         for (Die die : dice) {
             values.add(die.getValue());
@@ -35,6 +35,15 @@ public class Hand {
                 break;
             }
         }
+    }
+
+    public Boolean contains(int value) {
+        for (Die die : dice) {
+            if (value == die.getValue()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

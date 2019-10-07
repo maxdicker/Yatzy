@@ -44,7 +44,7 @@ public class UserHandler {
     public void printScoringOptions(Player player, ScoreCalculator calculator) {
         for (ScoreCategory category : ScoreCategory.values()){
             if (player.canChoose(category)) {
-                io.write(category.identifier + ". " + category + ": " + calculator.getScore(category, player.getHand().getValues()));
+                io.write(category.identifier + ". " + category + ": " + calculator.getScore(category, player.getHand().getDiceValues()));
             } else {
                 io.write(category + " has already been selected. You scored " + player.getSingleScore(category));
             }
@@ -57,14 +57,24 @@ public class UserHandler {
         io.write("Which dice would you like to roll again? You may choose as many as you like (or none).");
         io.write("Please enter dice values one at a time. Enter 9 to stop.");
         String input = "";
+
         while (!input.equals("9")) {
             input = io.read();
-            diceValues.add(Integer.parseInt(input));
+            try {
+                diceValues.add(Integer.parseInt(input));
+            } catch (NumberFormatException e) {
+                io.write("That's not a valid dice selection. Please try again.");
+            }
         }
+        diceValues.remove((Integer) 9);
         return diceValues;
     }
 
     public void printInvalidCategoryError() {
         io.write("You have already selected that category. Please try again.");
+    }
+
+    public void printInvalidDiceError() {
+        io.write("You cannot select values which are not in your hand. Please try again.");
     }
 }
