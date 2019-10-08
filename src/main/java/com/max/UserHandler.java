@@ -36,17 +36,17 @@ public class UserHandler {
         io.write("");
     }
 
-    public void printScore(Player player) {
-        io.write("Your score total is " + player.getTotalScore() + ".");
+    public void printTotalScore(int score) {
+        io.write("Your score total is " + score + ".");
         io.write("");
     }
 
     public void printScoringOptions(Player player, ScoreCalculator calculator) {
         for (ScoreCategory category : ScoreCategory.values()){
-            if (player.canChoose(category)) {
+            if (player.getScorecard().isAvailable(category)) {
                 io.write(category.identifier + ". " + category + ": " + calculator.getScore(category, player.getHand().getDiceValues()));
             } else {
-                io.write(category + " has already been selected. You scored " + player.getSingleScore(category));
+                io.write(category + " has already been selected. You scored " + player.getScorecard().getSingleScore(category));
             }
         }
         io.write("");

@@ -18,10 +18,11 @@ public class Game {
     }
 
     public void playYatzy() {
-        Player player = new Player();
+        IScorecard scorecard = new Scorecard();
+        Player player = new Player(scorecard);
         handler.printWelcome();
 
-        while (player.hasUnusedScoreCategories()) {
+        while (scorecard.hasAvailableCategories()) {
             player.newHand();
             handler.printHand(player);
             player.reRoll(getValidDiceSelection(player));
@@ -30,22 +31,22 @@ public class Game {
             handler.printHand(player);
 
             handler.printScoringOptions(player, calculator);
-            ScoreCategory category = getValidCategorySelection(player);
+            ScoreCategory category = getValidCategorySelection(scorecard);
             int score = calculator.getScore(category, player.getHand().getDiceValues());
-            player.attributeScore(category, score);
-            handler.printScore(player);
+            scorecard.registerScore(category, score);
+            handler.printTotalScore(scorecard.getTotalScore());
         }
     }
 
-    protected ScoreCategory getValidCategorySelection(Player player) {
+    protected ScoreCategory getValidCategorySelection(IScorecard scorecard) {
         ScoreCategory category = handler.getCategoryFromUser();
 
-        if (player.canChoose(category)) {
+        if (scorecard.isAvailable(category)) {
             return category;
         }
 
         handler.printInvalidCategoryError();
-        return getValidCategorySelection(player);
+        return getValidCategorySelection(scorecard);
     }
 
     protected List<Integer> getValidDiceSelection(Player player) {

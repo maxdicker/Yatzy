@@ -1,41 +1,28 @@
 package com.max;
 
 import java.util.List;
-import java.util.Set;
 
 public class Player {
     private Hand hand;
-    private Scorecard scorecard;
+    private IScorecard scorecard;
 
-    public Player() {
-        scorecard = new Scorecard();
+    public Player(IScorecard scorecard) {
+        this.scorecard = scorecard;
     }
 
-    public Player(Hand hand) {
-        this.scorecard = new Scorecard();
+    public Player(IScorecard scorecard, Hand hand) {
+        this.scorecard = scorecard;
         this.hand = hand;
     }
 
-    public int getTotalScore() {
-        return scorecard.getTotalScore();
-    }
-
-    public int getSingleScore(ScoreCategory category) {
-        return scorecard.getSingleScore(category);
-    }
-
-    public void attributeScore(ScoreCategory category, int score) {
-        scorecard.registerScore(category, score);
+    public IScorecard getScorecard() {
+        return scorecard;
     }
 
     public void reRoll(List<Integer> values) {
         for (int value : values) {
             hand.reRoll(value);
         }
-    }
-
-    public Boolean canChoose(ScoreCategory category) {
-        return scorecard.isAvailable(category);
     }
 
     public Boolean hasDice(List<Integer> values) {
@@ -47,10 +34,6 @@ public class Player {
             handValues.remove((Integer) value);
         }
         return true;
-    }
-
-    public Boolean hasUnusedScoreCategories() {
-        return scorecard.hasAvailableCategories();
     }
 
     public Hand getHand() {

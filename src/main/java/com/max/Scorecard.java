@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Scorecard implements Scorekeeper {
+public class Scorecard implements IScorecard {
     private Set<ScoreCategory> availableCategories;
     private Map<ScoreCategory, Integer> scoresByCategory;
     private int totalScore;

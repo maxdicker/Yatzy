@@ -1,6 +1,6 @@
 package com.max;
 
-public class MockScorecard_AllCatsUsed implements Scorekeeper {
+public class MockScorecard_AllCatsUsed implements IScorecard {
 
     @Override
     public int getTotalScore() {
