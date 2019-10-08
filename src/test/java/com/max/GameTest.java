@@ -9,18 +9,16 @@ import java.util.Collections;
 
 public class GameTest {
 
-    // Made methods public just to test them.
-
     @Test
     public void playerIsUnableToSelectCategoryThatIsUsed()
     {
         Player player = new Player();
+        player.attributeScore(ScoreCategory.FULL_HOUSE, 12);
+
         String inputForFullHouse = "15";
         String inputForChance = "1";
         IO io = new MockIO(Arrays.asList(inputForFullHouse, inputForChance));
         Game game = new Game(io);
-
-        player.attributeScore(ScoreCategory.FULL_HOUSE, 12);
 
         assertEquals(ScoreCategory.CHANCE, game.getValidCategorySelection(player));
     }

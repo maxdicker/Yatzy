@@ -53,10 +53,6 @@ public class Player {
         return scorecard.hasAvailableCategories();
     }
 
-    public Set<ScoreCategory> getUnusedCategories() {
-        return scorecard.getAvailableCategories();
-    }
-
     public Hand getHand() {
         return hand;
     }
