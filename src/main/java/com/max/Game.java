@@ -3,18 +3,12 @@ package com.max;
 import java.util.List;
 
 public class Game {
-    private IO io;
     private UserHandler handler;
     private ScoreCalculator calculator;
 
     public Game(IO io) {
-        this.io = io;
         this.handler = new UserHandler(io);
         this.calculator = new ScoreCalculator();
-    }
-
-    public void handleRoll(Die[] hand) {
-        io.write("hand is x, choose a category");
     }
 
     public void playYatzy() {
