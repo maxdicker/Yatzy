@@ -31,8 +31,8 @@ public class UserHandler {
         return getCategoryFromUser();
     }
 
-    public void printHand(Player player) {
-        io.write("Your hand contains " + player.handToString());
+    public void printHand(String toStringOfHand) {
+        io.write("Your hand contains " + toStringOfHand);
         io.write("");
     }
 
@@ -41,13 +41,11 @@ public class UserHandler {
         io.write("");
     }
 
-    public void printScoringOptions(Player player, ScoreCalculator calculator) {
-        for (ScoreCategory category : ScoreCategory.values()){
-            if (player.getScorecard().isAvailable(category)) {
-                io.write(category.identifier + ". " + category + ": " + calculator.getScore(category, player.getDiceValuesOfHandAsList()));
-            } else {
-                io.write(category + " has already been selected. You scored " + player.getScorecard().getSingleScore(category));
-            }
+    public void printScoringOption(ScoreCategory option, Boolean optionIsAvailable, int potentialScore, int usedScore) {
+        if (optionIsAvailable) {
+            io.write(option.identifier + ". " + option + ": " + potentialScore);
+        } else {
+            io.write(option + " has already been selected. You scored " + usedScore);
         }
         io.write("");
     }
@@ -66,6 +64,7 @@ public class UserHandler {
                 io.write("That's not a valid dice selection. Please try again.");
             }
         }
+
         diceValues.remove((Integer) 9);
         return diceValues;
     }

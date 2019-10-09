@@ -24,13 +24,16 @@ public class Game {
 
         while (scorecard.hasAvailableCategories()) {
             player.rollNewHand();
-            handler.printHand(player);
+            handler.printHand(player.handToString());
             player.rollDice(getValidDiceSelection(player));
-            handler.printHand(player);
+            handler.printHand(player.handToString());
             player.rollDice(getValidDiceSelection(player));
-            handler.printHand(player);
+            handler.printHand(player.handToString());
 
-            handler.printScoringOptions(player, calculator);
+            for (ScoreCategory category : ScoreCategory.values()) {
+                handler.printScoringOption(category, scorecard.isAvailable(category), calculator.getScore(category, player.getDiceValuesOfHandAsList()), scorecard.getSingleScore(category));
+            }
+
             ScoreCategory category = getValidCategorySelection(scorecard);
             int score = calculator.getScore(category, player.getDiceValuesOfHandAsList());
             scorecard.registerScore(category, score);
