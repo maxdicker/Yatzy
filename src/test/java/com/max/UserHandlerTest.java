@@ -13,21 +13,25 @@ public class UserHandlerTest {
     @Test
     public void getCategoryReturnsAScoreCategory()
     {
-        IO io = new MockIO("1");
+        String inputToSelectCHANCE = ScoreCategory.CHANCE.identifier;
+        IO io = new MockIO(inputToSelectCHANCE);
         this.handler = new UserHandler(io);
+
         assertEquals(ScoreCategory.CHANCE, handler.getCategoryFromUser());
     }
 
     @Test
     public void getCategoryRejectsBadInputAndReturnsAScoreCategory()
     {
-        IO io = new MockIO(Arrays.asList("foo", "5"));
+        String inputToSelectTHREES = ScoreCategory.THREES.identifier;
+        IO io = new MockIO(Arrays.asList("foo", inputToSelectTHREES));
         this.handler = new UserHandler(io);
+
         assertEquals(ScoreCategory.THREES, handler.getCategoryFromUser());
     }
 
     @Test
-    public void getDiceReturnsIntegerList()
+    public void getDiceReturnsValuesAsList()
     {
         String inputToTerminateProcess = "9";
         IO io = new MockIO(Arrays.asList("5", "2", inputToTerminateProcess));
@@ -37,7 +41,7 @@ public class UserHandlerTest {
     }
 
     @Test
-    public void getDiceRejectsBadInputAndReturnsIntegerList()
+    public void getDiceRejectsBadInputAndReturnsValuesAsList()
     {
         String inputToTerminateProcess = "9";
         IO io = new MockIO(Arrays.asList("foo", "2", inputToTerminateProcess));

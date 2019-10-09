@@ -41,13 +41,12 @@ public class UserHandler {
         io.write("");
     }
 
-    public void printScoringOption(ScoreCategory option, Boolean optionIsAvailable, int potentialScore, int usedScore) {
-        if (optionIsAvailable) {
+    public void printScoringOption(ScoreCategory option, Boolean optionAvailable, int potentialScore, int scoreInCard) {
+        if (optionAvailable) {
             io.write(option.identifier + ". " + option + ": " + potentialScore);
         } else {
-            io.write(option + " has already been selected. You scored " + usedScore);
+            io.write(option + " has already been selected. You scored " + scoreInCard);
         }
-        io.write("");
     }
 
     public List<Integer> getDiceToReRollFromUser() {
@@ -58,6 +57,7 @@ public class UserHandler {
 
         while (!input.equals("9")) {
             input = io.read();
+
             try {
                 diceValues.add(Integer.parseInt(input));
             } catch (NumberFormatException e) {

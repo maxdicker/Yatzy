@@ -18,27 +18,38 @@ public class Game {
     }
 
     public void playYatzy() {
-        IScorecard scorecard = new Scorecard();
-        Player player = new Player(scorecard);
+        IScorecard card = new Scorecard();
+        Player player = new Player(card);
         handler.printWelcome();
 
-        while (scorecard.hasAvailableCategories()) {
-            player.rollNewHand();
-            handler.printHand(player.handToString());
-            player.rollDice(getValidDiceSelection(player));
-            handler.printHand(player.handToString());
-            player.rollDice(getValidDiceSelection(player));
-            handler.printHand(player.handToString());
-
-            for (ScoreCategory category : ScoreCategory.values()) {
-                handler.printScoringOption(category, scorecard.isAvailable(category), calculator.getScore(category, player.getDiceValuesOfHandAsList()), scorecard.getSingleScore(category));
-            }
-
-            ScoreCategory category = getValidCategorySelection(scorecard);
-            int score = calculator.getScore(category, player.getDiceValuesOfHandAsList());
-            scorecard.registerScore(category, score);
-            handler.printTotalScore(scorecard.getTotalScore());
+        while (card.hasAvailableCategories()) {
+            executeOneGameRound(player);
         }
+    }
+
+    protected void executeOneGameRound(Player player) {
+        IScorecard scorecard = player.getScorecard();
+
+        player.rollNewHand();
+        handler.printHand(player.handToString());
+        player.rollDice(getValidDiceSelection(player));
+        handler.printHand(player.handToString());
+        player.rollDice(getValidDiceSelection(player));
+        handler.printHand(player.handToString());
+
+        for (ScoreCategory category : ScoreCategory.values()) {
+            Boolean optionAvailable = scorecard.isAvailable(category);
+            int potentialScore = calculator.getScore(category, player.getDiceValuesOfHandAsList());
+            int scoreInCard = scorecard.getSingleScore(category);
+
+            handler.printScoringOption(category, optionAvailable, potentialScore, scoreInCard);
+        }
+
+        ScoreCategory category = getValidCategorySelection(scorecard);
+        int score = calculator.getScore(category, player.getDiceValuesOfHandAsList());
+        scorecard.registerScore(category, score);
+
+        handler.printTotalScore(scorecard.getTotalScore());
     }
 
     protected ScoreCategory getValidCategorySelection(IScorecard scorecard) {
