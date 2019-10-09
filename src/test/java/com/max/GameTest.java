@@ -18,6 +18,7 @@ public class GameTest {
 
         String inputToSelectFULL_HOUSE = ScoreCategory.FULL_HOUSE.identifier;
         String inputToSelectCHANCE = ScoreCategory.CHANCE.identifier;
+        // readability: add a 'player will input' method to mockio
         IO io = new MockIO(Arrays.asList(inputToSelectFULL_HOUSE, inputToSelectCHANCE));
         Game game = new Game(io);
         ScoreCategory selection = game.getValidCategorySelection(card);
@@ -33,6 +34,7 @@ public class GameTest {
         Player player = new Player(card, hand);
 
         String inputToTerminateProcess = "9";
+        // unclear what's supposed to happen after each input here
         IO io = new MockIO(Arrays.asList("6", inputToTerminateProcess, "1", "1", inputToTerminateProcess, "1", inputToTerminateProcess));
         Game game = new Game(io);
         List<Integer> selection = game.getValidDiceSelection(player);
@@ -45,6 +47,7 @@ public class GameTest {
     {
         IScorecard card = new Scorecard();
         Player player = new Player(card);
+        // this is a better name than inputToTerminateProcess
         String inputToStopDiceSelection = "9";
         String inputToSelectCHANCE = ScoreCategory.CHANCE.identifier;
         IO io = new MockIO(Arrays.asList(inputToStopDiceSelection, inputToStopDiceSelection, inputToSelectCHANCE));
@@ -71,4 +74,7 @@ public class GameTest {
 
         assertNotEquals(handAtStart, handAtEnd);
     }
+
+    // more tests:
+    // what's supposed to happen when the player has used all categories?
 }

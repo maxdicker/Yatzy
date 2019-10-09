@@ -2,6 +2,8 @@ package com.max;
 
 import java.util.*;
 
+// Although this works, this will definitely receive comments in a quorum about being
+// too big/doing too much. A suitable pattern to break this class up is the 'strategy pattern'.
 public class ScoreCalculator {
     private static final int yatzyScore = 50;
     private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));

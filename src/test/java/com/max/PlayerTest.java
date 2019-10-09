@@ -40,6 +40,7 @@ public class PlayerTest {
     }
 
     // Involves randomness. May fail
+    // could use a stub to remove random element here
     @Test
     public void rollMutatesPlayersHand()
     {

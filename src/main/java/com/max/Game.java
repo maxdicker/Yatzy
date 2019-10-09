@@ -21,8 +21,13 @@ public class Game {
         }
     }
 
+    // this method could still be smaller
     protected void executeOneGameRound(Player player) {
         IScorecard scorecard = player.getScorecard();
+
+        // a few comments about this block
+        // - make a separate 're-roll' method, it's confusing that 'roll' takes an input
+        // - what if the player chooses not to re-roll? it's not obvious how that works here
 
         player.rollNewHand();
         handler.printHand(player.handToString());
