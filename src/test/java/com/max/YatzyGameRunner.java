@@ -12,7 +12,7 @@ public class YatzyGameRunner {
         game = new Game(IOGetter);
     }
 
-    public void handleRoll(Hand hand) {
+    public void handleRoll(Die[] hand) {
         game.handleRoll(hand);
     }
 

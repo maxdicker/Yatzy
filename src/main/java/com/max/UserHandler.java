@@ -32,7 +32,7 @@ public class UserHandler {
     }
 
     public void printHand(Player player) {
-        io.write("Your hand contains " + player.getHand());
+        io.write("Your hand contains " + player.handToString());
         io.write("");
     }
 
@@ -44,7 +44,7 @@ public class UserHandler {
     public void printScoringOptions(Player player, ScoreCalculator calculator) {
         for (ScoreCategory category : ScoreCategory.values()){
             if (player.getScorecard().isAvailable(category)) {
-                io.write(category.identifier + ". " + category + ": " + calculator.getScore(category, player.getHand().getDiceValues()));
+                io.write(category.identifier + ". " + category + ": " + calculator.getScore(category, player.getDiceValuesOfHandAsList()));
             } else {
                 io.write(category + " has already been selected. You scored " + player.getScorecard().getSingleScore(category));
             }

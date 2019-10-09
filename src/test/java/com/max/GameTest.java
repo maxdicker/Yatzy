@@ -27,7 +27,7 @@ public class GameTest {
     @Test
     public void playerCanOnlyReRollDiceTheirHandContains()
     {
-        Hand hand = new Hand(Arrays.asList(1,2,3,3,3));
+        int[] hand = new int[] {1,2,3,3,3};
         IScorecard card = new Scorecard();
         Player player = new Player(card, hand);
         String inputToTerminateProcess = "9";

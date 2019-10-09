@@ -13,7 +13,7 @@ public class Game {
         this.calculator = new ScoreCalculator();
     }
 
-    public void handleRoll(Hand hand) {
+    public void handleRoll(Die[] hand) {
         io.write("hand is x, choose a category");
     }
 
@@ -23,16 +23,16 @@ public class Game {
         handler.printWelcome();
 
         while (scorecard.hasAvailableCategories()) {
-            player.newHand();
+            player.rollNewHand();
             handler.printHand(player);
-            player.reRoll(getValidDiceSelection(player));
+            player.rollDice(getValidDiceSelection(player));
             handler.printHand(player);
-            player.reRoll(getValidDiceSelection(player));
+            player.rollDice(getValidDiceSelection(player));
             handler.printHand(player);
 
             handler.printScoringOptions(player, calculator);
             ScoreCategory category = getValidCategorySelection(scorecard);
-            int score = calculator.getScore(category, player.getHand().getDiceValues());
+            int score = calculator.getScore(category, player.getDiceValuesOfHandAsList());
             scorecard.registerScore(category, score);
             handler.printTotalScore(scorecard.getTotalScore());
         }
@@ -52,7 +52,7 @@ public class Game {
     protected List<Integer> getValidDiceSelection(Player player) {
         List<Integer> dice = handler.getDiceToReRollFromUser();
 
-        if (player.hasDice(dice)) {
+        if (player.hasDiceInHand(dice)) {
             return dice;
         }
 

@@ -14,7 +14,7 @@ public class YatzyEndToEndTest {
         YatzyGameRunner game = new YatzyGameRunner();
         IScorecard card = new Scorecard();
         Player player = new Player(card);
-        game.handleRoll(new Hand(Arrays.asList(1, 1, 1, 1, 1)));
+        game.handleRoll(new Die[] {new Die(1), new Die(1), new Die(1), new Die(1), new Die(1)});
         game.assertPromptsPlayerForCategory(player);
         game.chooseCategory(ScoreCategory.FOUR_OF_A_KIND);
         game.assertShowsScoreToPlayer(player, 4);
