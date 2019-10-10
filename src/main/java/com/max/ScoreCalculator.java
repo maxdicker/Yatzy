@@ -7,22 +7,34 @@ public class ScoreCalculator {
     private static final ArrayList<Integer> smallStraight = new ArrayList<>(Arrays.asList(1,2,3,4,5));
     private static final ArrayList<Integer> largeStraight = new ArrayList<>(Arrays.asList(2,3,4,5,6));
 
+    private IScorecalculator getCalculator(ScoreCategory category) {
+
+        switch (category) {
+            case CHANCE:
+                return new Chance();
+            case ONES:
+                return new SpecificNumber(1);
+            case TWOS:
+                return new SpecificNumber(2);
+
+            default:
+                throw new IllegalStateException("Unknown category");
+        }
+    }
+
     public int getScore(ScoreCategory category, List<Integer> values) {
         Map<Integer, Integer> frequenciesByValue = toFrequencyMap(values);
         int score;
 
         switch (category) {
             case CHANCE:
-                score = calcChance(frequenciesByValue);
+            case ONES:
+            case TWOS:
+                IScorecalculator calc = getCalculator(category);
+                score = calc.calculateScore(values);
                 break;
             case YATZY:
                 score = calcYatzy(frequenciesByValue);
-                break;
-            case ONES:
-                score = calcSumOfParticularNumber(1, frequenciesByValue);
-                break;
-            case TWOS:
-                score = calcSumOfParticularNumber(2, frequenciesByValue);
                 break;
             case THREES:
                 score = calcSumOfParticularNumber(3, frequenciesByValue);
@@ -70,10 +82,6 @@ public class ScoreCalculator {
             frequenciesByValue.put(value, frequenciesByValue.getOrDefault(value, 0) + 1);
         }
         return frequenciesByValue;
-    }
-
-    private int calcChance(Map<Integer, Integer> frequenciesByValue) {
-        return sum(frequenciesByValue);
     }
 
     private int sum(Map<Integer, Integer> frequenciesByValue) {
