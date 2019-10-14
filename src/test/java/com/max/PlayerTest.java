@@ -15,7 +15,7 @@ public class PlayerTest {
     public void playersInitialHandContainsFiveDice()
     {
         IScorecard card = new Scorecard();
-        Player player = new Player(card);
+        Player player = new Player(card, new RealRandom());
         Die[] hand = player.getHand();
 
         assertEquals(5, hand.length);
@@ -25,7 +25,7 @@ public class PlayerTest {
     public void diceInHandHaveValuesBetweenOneAndSix()
     {
         IScorecard card = new Scorecard();
-        Player player = new Player(card);
+        Player player = new Player(card, new RealRandom());
         Die[] hand = player.getHand();
         boolean valuesAreBetweenRange = true;
 
@@ -46,7 +46,7 @@ public class PlayerTest {
         IScorecard card = new Scorecard();
         int testValue = 1;
         int[] initialHandValues = new int[] {testValue, 2, 3, 4, 5};
-        Player player = new Player(card, initialHandValues);
+        Player player = new Player(card, new MockRandom(), initialHandValues);
 
         player.rollDice(Collections.singletonList(testValue));
         Die rolledDie = player.getHand()[0];
@@ -59,7 +59,7 @@ public class PlayerTest {
     {
         IScorecard card = new Scorecard();
         int[] initialHandValues = new int[] {1, 2, 3, 4, 5};
-        Player player = new Player(card, initialHandValues);
+        Player player = new Player(card, new RealRandom(), initialHandValues);
 
         player.rollDice(Arrays.asList(4, 3, 5));
         Die[] handAfterRoll = player.getHand();
@@ -72,7 +72,7 @@ public class PlayerTest {
     {
         IScorecard card = new Scorecard();
         int[] initialHandValues = new int[] {1, 2, 3, 4, 5};
-        Player player = new Player(card, initialHandValues);
+        Player player = new Player(card, new RealRandom(), initialHandValues);
 
         assertFalse(player.hasDiceInHand(Arrays.asList(5, 1, 1)));
     }
@@ -82,7 +82,7 @@ public class PlayerTest {
     {
         IScorecard card = new Scorecard();
         int[] initialHandValues = new int[] {1, 1, 1, 1, 1};
-        Player player = new Player(card, initialHandValues);
+        Player player = new Player(card, new RealRandom(), initialHandValues);
 
         assertFalse(player.hasDiceInHand(Arrays.asList(1, 3)));
     }
@@ -92,7 +92,7 @@ public class PlayerTest {
     {
         IScorecard card = new Scorecard();
         int[] initialHandValues = new int[] {1, 5, 3, 3, 1};
-        Player player = new Player(card, initialHandValues);
+        Player player = new Player(card, new RealRandom(), initialHandValues);
 
         assertTrue(player.hasDiceInHand(Arrays.asList(5, 1, 1, 3, 3)));
     }
@@ -103,7 +103,7 @@ public class PlayerTest {
         IScorecard card = new Scorecard();
         int[] initialHandValues = new int[] {1, 5, 3, 3, 1};
         List<Integer> initialHandAsList = new ArrayList<>(Arrays.asList(1, 5, 3, 3, 1));
-        Player player = new Player(card, initialHandValues);
+        Player player = new Player(card, new RealRandom(), initialHandValues);
 
         assertEquals(initialHandAsList, player.getDiceValuesOfHandAsList());
     }
@@ -113,7 +113,7 @@ public class PlayerTest {
     {
         IScorecard card = new Scorecard();
         int[] initialHandValues = new int[] {1, 5, 3, 3, 1};
-        Player player = new Player(card, initialHandValues);
+        Player player = new Player(card, new RealRandom(), initialHandValues);
 
         assertEquals("1, 5, 3, 3, 1", player.handToString());
     }

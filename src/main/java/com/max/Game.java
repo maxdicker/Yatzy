@@ -13,7 +13,7 @@ public class Game {
 
     public void playYatzy() {
         IScorecard card = new Scorecard();
-        Player player = new Player(card);
+        Player player = new Player(card, new RealRandom());
         handler.printWelcome();
 
         while (card.hasAvailableCategories()) {

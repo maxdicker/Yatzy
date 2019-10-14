@@ -8,21 +8,24 @@ public class Player {
     private final int HAND_SIZE = 5;
     private Die[] hand;
     private IScorecard scorecard;
+    private IRandom random;
 
-    public Player(IScorecard scorecard) {
+    public Player(IScorecard scorecard, IRandom random) {
         this.scorecard = scorecard;
+        this.random = random;
         rollNewHand();
     }
 
-    public Player(IScorecard scorecard, int[] hand) {
+    public Player(IScorecard scorecard, IRandom random, int[] hand) {
         this.scorecard = scorecard;
+        this.random = random;
         this.hand = createHandFromDiceValues(hand);
     }
 
     public Die[] rollNewHand() {
         this.hand = new Die[HAND_SIZE];
         for (int i = 0; i < HAND_SIZE; i++) {
-            hand[i] = new Die();
+            hand[i] = new Die(random);
         }
         return hand;
     }
@@ -30,7 +33,7 @@ public class Player {
     private Die[] createHandFromDiceValues(int[] values) {
         Die[] hand = new Die[values.length];
         for (int i = 0; i < values.length; i++) {
-            hand[i] = new Die(values[i]);
+            hand[i] = new Die(random, values[i]);
         }
         return hand;
     }

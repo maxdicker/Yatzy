@@ -30,7 +30,7 @@ public class GameTest {
     {
         int[] hand = new int[] {1,2,3,3,3};
         IScorecard card = new Scorecard();
-        Player player = new Player(card, hand);
+        Player player = new Player(card, new MockRandom(), hand);
 
         String inputToTerminateProcess = "9";
         IO io = new MockIO(Arrays.asList("6", inputToTerminateProcess, "1", "1", inputToTerminateProcess, "1", inputToTerminateProcess));
@@ -44,7 +44,7 @@ public class GameTest {
     public void oneGameRoundUpdatesPlayersScore()
     {
         IScorecard card = new Scorecard();
-        Player player = new Player(card);
+        Player player = new Player(card, new MockRandom());
         String inputToStopDiceSelection = "9";
         String inputToSelectCHANCE = ScoreCategory.CHANCE.identifier;
         IO io = new MockIO(Arrays.asList(inputToStopDiceSelection, inputToStopDiceSelection, inputToSelectCHANCE));
@@ -59,7 +59,7 @@ public class GameTest {
     public void eachGameRoundGivesPlayerNewDice()
     {
         IScorecard card = new Scorecard();
-        Player player = new Player(card);
+        Player player = new Player(card, new RealRandom());
         String inputToStopDiceSelection = "9";
         String inputToSelectCHANCE = ScoreCategory.CHANCE.identifier;
         IO io = new MockIO(Arrays.asList(inputToStopDiceSelection, inputToStopDiceSelection, inputToSelectCHANCE));
